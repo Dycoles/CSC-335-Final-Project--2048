@@ -5,11 +5,13 @@ import java.util.ArrayList;
 public class Board {
 	// set global vars
 	private int thisBoardSize;
-	private Tile tile = new Tile();
-	private ArrayList<Tile> board;
+	private Tiles tile;
+	private ArrayList<Tiles> board;
+	private int myScore;
 	// initialize board with custom size
 	public Board(int boardSize) {
 		thisBoardSize = boardSize;
+		myScore = 0;
 		createBoard(thisBoardSize);
 	}
 	
@@ -24,7 +26,17 @@ public class Board {
 	}
 	
 	// get the board (which is an arrayList of tiles)
-	public ArrayList<Tile> getBoard() {
+	public ArrayList<Tiles> getBoard() {
 		return board;
+	}
+	
+	// set score value
+	public void incrementScore(int score) {
+		myScore = score;
+	}
+	
+	// get score value
+	public int getScore() {
+		return myScore;
 	}
 }
