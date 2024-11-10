@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Board {
 	// set global vars
 	private int thisBoardSize;
-	private Tiles tile = new Tiles();
-	private ArrayList<Tiles> board;
+	private Tile tile = new Tile();
+	private ArrayList<Tile> board;
 	// initialize board with custom size
 	public Board(int boardSize) {
 		thisBoardSize = boardSize;
@@ -24,7 +24,7 @@ public class Board {
 	}
 	
 	// get the board (which is an arrayList of tiles)
-	public ArrayList<Tiles> getBoard() {
+	public ArrayList<Tile> getBoard() {
 		return board;
 	}
 }
