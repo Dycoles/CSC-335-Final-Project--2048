@@ -1,40 +1,51 @@
 package Components;
 
-public class Tiles {
-	int thisValue;
-	public Tiles(int val) {
-		thisValue = val;
+public class Tile {
+	int value;
+	
+	public Tile() {
+		value = 0;
+	}
+	
+	public Tile(int val) {
+		value = val;
 	}
 	
 	public int getValue() {
-		return 0;
+		return value;
 	}
 	
 	public void removeValue() {
-		
+		value = 0;
 	}
 	
 	public boolean isEmpty() {
-		return false;
+		return value != 0;
 	}
 	
-	public void canMove() {
-		
+	public boolean canMove(Tile to) {
+		return to.isEmpty();
 	}
 	
-	public boolean canMerge() {
-		return false;
+	public boolean canMerge(Tile to) {
+		return to.getValue() == this.getValue();
 	}
 	
-	public void moveVal() {
-		
+	public void moveVal(Tile to) {
+		to.setVal(value);
+		value = 0;
 	}
 	
-	public void mergeVal() {
-		
+	public void mergeVal(Tile to) {
+		to.doubleVal();
+		value = 0;
 	}
 	
-	private int doubleVal(int val) {
-		return val;
+	private void setVal(int val) {
+		value = val;
+	}
+	
+	private void doubleVal() {
+		value = value << 1;
 	}
 }
