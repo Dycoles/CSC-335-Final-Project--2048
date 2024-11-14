@@ -1,5 +1,7 @@
 package Components;
 
+import java.util.Random;
+
 public class Tile {
 	int value;
 	
@@ -9,6 +11,16 @@ public class Tile {
 	
 	public Tile(int val) {
 		value = val;
+	}
+	
+	public void initialize() {
+		// Assign either 2 or 4 to this tile:
+		Random rand = new Random();
+		int valueChance = rand.nextInt(10);
+		if (valueChance <= 6)	// 7/10 chance for a 2 TODO play with probability
+			this.setVal(2);
+		else
+			this.setVal(4);
 	}
 	
 	public int getValue() {
