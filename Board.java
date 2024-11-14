@@ -5,6 +5,7 @@ import java.util.Random;
 
 public class Board {
 	// set vars
+	public static int WIN_VAL = 2048;
 	private int thisBoardSize;
 	private Tile[][] board;
 	private int myScore;
@@ -15,6 +16,41 @@ public class Board {
 		thisBoardSize = boardSize;
 		myScore = 0;
 		board = initializeBoard(thisBoardSize);
+	}
+	
+	// determine if the game has been won
+	public boolean gameWon() {
+		for (int row = 0; row < thisBoardSize; row++)
+			for (int col = 0; col < thisBoardSize; col++)
+				if (board[row][col].getValue() == WIN_VAL)
+					return true;
+		return false;
+	}
+	
+	// determine if the game has been lost
+	public boolean gameLost() {
+		// Check for any empty tiles:
+		if (randEmpty() != null) {
+			return false;
+		}
+		
+		// No empty tiles, so check for possible merges:
+		for (int row = 0; row < thisBoardSize; row++) {
+			for (int col = 0; col < thisBoardSize; col++) {
+				Tile thisTile = board[row][col];
+				
+				// Check if this tile can merge:
+				ArrayList<Tile> tNeighbors = neighbors(row, col);
+				for (Tile neighbor : tNeighbors) {
+					if (thisTile.canMerge(neighbor)) {
+						return false;
+					}
+				}
+			}
+		}
+		
+		// Nothing can move or merge, so game is lost:
+		return true;
 	}
 	
 	// create the board
@@ -62,6 +98,11 @@ public class Board {
 		
 		// Pick a random tile from the list of empties:
 		return empties.get(rand.nextInt(empties.size()));
+	}
+	
+	// get a list of a tile's neighbors
+	private ArrayList<Tile> neighbors(int row, int col) {
+		return null;
 	}
 	
 	// increment score value
