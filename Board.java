@@ -1,12 +1,14 @@
 package Components;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Board {
-	// set global vars
+	// set vars
 	private int thisBoardSize;
 	private Tile[][] board;
 	private int myScore;
+	public static Random rand = new Random();
 	
 	// initialize board with custom size
 	public Board(int boardSize) {
@@ -17,8 +19,6 @@ public class Board {
 	
 	// create the board
 	private Tile[][] initializeBoard(int size) {
-		Random rand = new Random();
-		
 		Tile[][] newBoard = new Tile[size][size];
 		
 		// Create the initial two tile values:
@@ -41,14 +41,31 @@ public class Board {
 	private void shiftTile() {
 		
 	}
+
+	// get a random empty tile
+	private Tile randEmpty() {
+		ArrayList<Tile> empties = new ArrayList<>();
+		
+		// Get a list of empty tiles:
+		for (int row = 0; row < thisBoardSize; row++) {
+			for (int col = 0; col < thisBoardSize; col++) {
+				if (board[row][col].isEmpty()) {
+					empties.add(board[row][col]);
+				}
+			}
+		}
+		
+		// If empty, return null:
+		if (empties.isEmpty()) {
+			return null;
+		}
+		
+		// Pick a random tile from the list of empties:
+		return empties.get(rand.nextInt(empties.size()));
+	}
 	
-	// get the board (which is an arrayList of tiles)
-	/*public ArrayList<Tiles> getBoard() {
-		return board;
-	}*/
-	
-	// set score value
-	public void incrementScore(int incBy) {
+	// increment score value
+	private void incrementScore(int incBy) {
 		myScore += incBy;
 	}
 	
