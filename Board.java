@@ -74,7 +74,26 @@ public class Board {
 	}
 	
 	// shift tiles on the board
-	private void shiftTile() {
+	private void shiftTile(Direction dir) {
+		if (dir == Direction.UP) {
+			shiftTileUp();
+		} else if (dir == Direction.RIGHT) {
+			
+		} else if (dir == Direction.LEFT) {
+			
+		} else if (dir == Direction.DOWN) {
+			
+		}
+	}
+	
+	// shift tiles upward
+	private void shiftTileUp() {
+		
+		for (int row=0;row<thisBoardSize;row++) {
+			for (int col=0;col<thisBoardSize;col++) {
+				
+			}
+		}
 		
 	}
 
@@ -102,7 +121,20 @@ public class Board {
 	
 	// get a list of a tile's neighbors
 	private ArrayList<Tile> neighbors(int row, int col) {
-		return null;
+		ArrayList<Tile> neighbors = new ArrayList<Tile>();
+		if (row != 0) {
+			neighbors.add(board[row-1][col]); // potential escaping reference, maybe we opt for copy
+		}
+		if (col != thisBoardSize-1) {
+			neighbors.add(board[row][col+1]); // potential escaping reference, maybe we opt for copy
+		}
+		if (row != thisBoardSize-1) {
+			neighbors.add(board[row+1][col]); // potential escaping reference, maybe we opt for copy
+		}
+		if (col != 0) {
+			neighbors.add(board[row][col-1]); // potential escaping reference, maybe we opt for copy
+		}
+		return neighbors;
 	}
 	
 	// increment score value
