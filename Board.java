@@ -88,9 +88,9 @@ public class Board {
 	
 	// shift tiles upward
 	private void shiftTileUp() {
-		
-		for (int row=0;row<thisBoardSize;row++) {
-			for (int col=0;col<thisBoardSize;col++) {
+		for (int col=0;col<thisBoardSize;col++) {
+			boolean sorted = false; // if there is no more shifts within the column that can occur
+			while (!sorted) {
 				
 			}
 		}
