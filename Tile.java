@@ -3,7 +3,7 @@ package Components;
 import java.util.Random;
 
 public class Tile {
-	int value;
+	private int value;
 	
 	public Tile() {
 		value = 0;
@@ -32,7 +32,7 @@ public class Tile {
 	}
 	
 	public boolean isEmpty() {
-		return value != 0;
+		return value == 0;
 	}
 	
 	public boolean canMove(Tile to) {
