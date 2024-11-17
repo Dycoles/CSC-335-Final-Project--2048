@@ -57,6 +57,13 @@ public class Board {
 	private Tile[][] initializeBoard(int size) {
 		Tile[][] newBoard = new Tile[size][size];
 		
+		// initialize all empty tiles
+		for (int row = 0; row < size; row++) {
+	        for (int col = 0; col < size; col++) {
+	            newBoard[row][col] = new Tile();
+	        }
+	    }
+		
 		// Create the initial two tile values:
 		int t1Row = rand.nextInt(size);
 		int t1Col = rand.nextInt(size);
@@ -70,31 +77,50 @@ public class Board {
 		} while (t2Row != t1Row && t2Col != t1Col);
 		newBoard[t2Row][t2Col].initialize();
 		
+		// debug print to see if board is created
+		System.out.println("Initializing board");
 		return newBoard;
 	}
 	
 	// shift tiles on the board
-	private void shiftTile(Direction dir) {
+	public void shiftTile(Direction dir) {
 		if (dir == Direction.UP) {
 			shiftTileUp();
 		} else if (dir == Direction.RIGHT) {
-			
+			shiftTileRight();
 		} else if (dir == Direction.LEFT) {
-			
+			shiftTileLeft();
 		} else if (dir == Direction.DOWN) {
-			
+			shiftTileDown();
 		}
 	}
-	
+
 	// shift tiles upward
 	private void shiftTileUp() {
-		for (int col=0;col<thisBoardSize;col++) {
-			boolean sorted = false; // if there is no more shifts within the column that can occur
-			while (!sorted) {
-				
-			}
-		}
+		System.out.println("Shifting up");
 		
+//		for (int col=0;col<thisBoardSize;col++) {
+//			boolean sorted = false; // if there is no more shifts within the column that can occur
+//			while (!sorted) {
+//				
+//			}
+//		}
+		
+	}
+	
+	private void shiftTileRight() {
+		// TODO Auto-generated method stub
+		System.out.println("Shifting right");
+	}
+	
+	private void shiftTileLeft() {
+		// TODO Auto-generated method stub
+		System.out.println("Shifting left");
+	}
+	
+	private void shiftTileDown() {
+		// TODO Auto-generated method stub
+		System.out.println("Shifting down");
 	}
 
 	// get a random empty tile
@@ -135,6 +161,11 @@ public class Board {
 			neighbors.add(board[row][col-1]); // potential escaping reference, maybe we opt for copy
 		}
 		return neighbors;
+	}
+	
+	// print the board and it's values for testing purposes
+	public void printBoard() {
+		
 	}
 	
 	// increment score value
