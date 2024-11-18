@@ -74,7 +74,7 @@ public class Board {
 		do {
 			t2Row = rand.nextInt(size);
 			t2Col = rand.nextInt(size);
-		} while (t2Row != t1Row && t2Col != t1Col);
+		} while (t2Row == t1Row && t2Col == t1Col);
 		newBoard[t2Row][t2Col].initialize();
 		
 		// debug print to see if board is created
@@ -98,29 +98,32 @@ public class Board {
 	// shift tiles upward
 	private void shiftTileUp() {
 		System.out.println("Shifting up");
-		
 //		for (int col=0;col<thisBoardSize;col++) {
 //			boolean sorted = false; // if there is no more shifts within the column that can occur
 //			while (!sorted) {
 //				
 //			}
 //		}
+		createNewTile();
 		
 	}
 	
 	private void shiftTileRight() {
 		// TODO Auto-generated method stub
 		System.out.println("Shifting right");
+		createNewTile();
 	}
-	
+
 	private void shiftTileLeft() {
 		// TODO Auto-generated method stub
 		System.out.println("Shifting left");
+		createNewTile();
 	}
 	
 	private void shiftTileDown() {
 		// TODO Auto-generated method stub
 		System.out.println("Shifting down");
+		createNewTile();
 	}
 
 	// get a random empty tile
@@ -143,6 +146,21 @@ public class Board {
 		
 		// Pick a random tile from the list of empties:
 		return empties.get(rand.nextInt(empties.size()));
+	}
+	
+	private void createNewTile() {
+		// TODO Auto-generated method stub
+		System.out.println("Generating tile");
+		// get a random empty tile
+		Tile newTile = randEmpty();
+		
+		// NOTE THAT THIS IF STATEMENT IS SUBJECT TO CHANGE ONCE MERGE AND GAME LOST/WON ARE CORRECTLY IMPLEMENTED. IF ERRORS OCCUR CHECK HERE
+		if (newTile == null) {
+			gameLost();
+			return;
+		}
+		// initialize the tile
+		newTile.initialize();
 	}
 	
 	// get a list of a tile's neighbors
