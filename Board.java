@@ -98,6 +98,36 @@ public class Board {
 	// shift tiles upward
 	private void shiftTileUp() {
 		System.out.println("Shifting up");
+		
+		// Iterate through each column:
+		for (int col = 0; col < thisBoardSize; col++) {
+			// Move everything up:
+			int moveI = 0, emptyI = 0;
+			while (moveI < thisBoardSize) {
+				if (!(board[moveI][col].isEmpty())) {
+					board[moveI][col].moveVal(board[emptyI][col]);
+					emptyI++;
+				}
+				moveI++;
+			}
+			
+			// Make any merges:
+			for (int mergeI = 0; mergeI < thisBoardSize-1; mergeI++) {
+				if (board[mergeI+1][col].canMerge(board[mergeI][col])) {
+					board[mergeI+1][col].mergeVal(board[mergeI][col]);
+					
+					// Shift over all other values:
+					for (int shiftI = mergeI+1; shiftI < thisBoardSize-1; shiftI++) {
+						board[shiftI+1][col].moveVal(board[shiftI][col]);
+					}
+					board[thisBoardSize-1][col].removeValue();
+				}
+			}
+		}
+		
+		
+		
+		
 //		for (int col=0;col<thisBoardSize;col++) {
 //			boolean sorted = false; // if there is no more shifts within the column that can occur
 //			while (!sorted) {
@@ -105,6 +135,7 @@ public class Board {
 //			}
 //		}
 		createNewTile();
+		
 		
 	}
 	
