@@ -13,6 +13,7 @@ public class View {
 
 	private static void playGame() {
 		Board board = new Board(4);
+		board.printBoard();
 		System.out.println("Use 'w a s d' to shift the board");
 		Scanner scanner = new Scanner(System.in);
 		char inputChar;
