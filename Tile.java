@@ -44,13 +44,17 @@ public class Tile {
 	}
 	
 	public void moveVal(Tile to) {
-		to.setVal(value);
-		value = 0;
+		if (to != this) {
+			to.setVal(value);
+			value = 0;
+		}
 	}
 	
 	public void mergeVal(Tile to) {
-		to.doubleVal();
-		value = 0;
+		if (to != this) {
+			to.doubleVal();
+			value = 0;
+		}
 	}
 	
 	private void setVal(int val) {
