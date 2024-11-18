@@ -292,7 +292,7 @@ public class Board {
 	public void printBoard() {
 		for (int row = 0; row < thisBoardSize; row++) {
 	        for (int col = 0; col < thisBoardSize; col++) {
-	            System.out.print(board[row][col].getValue());
+	            System.out.print("[" + board[row][col].getValue() + "]");
 	        }
 	        System.out.println();
 	    }
