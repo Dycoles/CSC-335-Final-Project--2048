@@ -146,8 +146,34 @@ public class Board {
 	}
 
 	private void shiftTileLeft() {
-		// TODO Auto-generated method stub
-		System.out.println("Shifting left");
+		System.out.println("Shifting up");
+		
+		// Iterate through each row:
+		for (int row = 0; row < thisBoardSize; row++) {
+			// Move everything left:
+			int moveI = 0, emptyI = 0;
+			while (moveI < thisBoardSize) {
+				if (!(board[row][moveI].isEmpty())) {
+					board[row][moveI].moveVal(board[row][emptyI]);
+					emptyI++;
+				}
+				moveI++;
+			}
+			
+			// Make any merges:
+			for (int mergeI = 0; mergeI < thisBoardSize-1; mergeI++) {
+				if (board[row][mergeI+1].canMerge(board[row][mergeI])) {
+					board[row][mergeI+1].mergeVal(board[row][mergeI]);
+					
+					// Shift over all other values:
+					for (int shiftI = mergeI+1; shiftI < thisBoardSize-1; shiftI++) {
+						board[row][shiftI+1].moveVal(board[row][shiftI]);
+					}
+					board[row][thisBoardSize-1].removeValue();
+				}
+			}
+		}
+		
 		createNewTile();
 	}
 	
