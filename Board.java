@@ -140,8 +140,33 @@ public class Board {
 	}
 	
 	private void shiftTileRight() {
-		// TODO Auto-generated method stub
-		System.out.println("Shifting right");
+		System.out.println("Shifting down");
+		
+		// Iterate through each row:
+		for (int row = 0; row < thisBoardSize; row++) {
+			// Move everything right:
+			int moveI = thisBoardSize-1, emptyI = thisBoardSize-1;
+			while (moveI >= 0) {
+				if (!(board[row][moveI].isEmpty())) {
+					board[row][moveI].moveVal(board[row][emptyI]);
+					emptyI--;
+				}
+				moveI--;
+			}
+			
+			// Make any merges:
+			for (int mergeI = thisBoardSize-1; mergeI > 0; mergeI--) {
+				if (board[row][mergeI-1].canMerge(board[row][mergeI])) {
+					board[row][mergeI-1].mergeVal(board[row][mergeI]);
+					
+					// Shift over all other values:
+					for (int shiftI = mergeI-1; shiftI > 0; shiftI--) {
+						board[row][shiftI-1].moveVal(board[row][shiftI]);
+					}
+					board[row][0].removeValue();
+				}
+			}
+		}
 		createNewTile();
 	}
 
