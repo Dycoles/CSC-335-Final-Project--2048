@@ -6,13 +6,13 @@ import Components.Board;
 import Components.Direction;
 
 public class View {
-	public void play() {
-		// we can use scanner to create board size later; will use 4 as a temporary value
-		Board thisBoard = new Board(4);
-		playGame(thisBoard);
+	
+	public static void main(String[] args) {
+		playGame();
 	}
 
-	private void playGame(Board board) {
+	private static void playGame() {
+		Board board = new Board(4);
 		System.out.println("Use 'w a s d' to shift the board");
 		Scanner scanner = new Scanner(System.in);
 		char inputChar;
