@@ -152,8 +152,33 @@ public class Board {
 	}
 	
 	private void shiftTileDown() {
-		// TODO Auto-generated method stub
 		System.out.println("Shifting down");
+		
+		// Iterate through each column:
+		for (int col = 0; col < thisBoardSize; col++) {
+			// Move everything up:
+			int moveI = thisBoardSize-1, emptyI = thisBoardSize-1;
+			while (moveI >= 0) {
+				if (!(board[moveI][col].isEmpty())) {
+					board[moveI][col].moveVal(board[emptyI][col]);
+					emptyI--;
+				}
+				moveI--;
+			}
+			
+			// Make any merges:
+			for (int mergeI = thisBoardSize-1; mergeI > 0; mergeI--) {
+				if (board[mergeI-1][col].canMerge(board[mergeI][col])) {
+					board[mergeI-1][col].mergeVal(board[mergeI][col]);
+					
+					// Shift over all other values:
+					for (int shiftI = mergeI-1; shiftI > 0; shiftI--) {
+						board[shiftI-1][col].moveVal(board[shiftI][col]);
+					}
+					board[0][col].removeValue();
+				}
+			}
+		}
 		createNewTile();
 	}
 
