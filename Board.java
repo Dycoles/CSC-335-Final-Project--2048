@@ -83,8 +83,10 @@ public class Board {
 	}
 	
 	// shift tiles upward
-	public void shiftTileUp() {
+	public int shiftUp() {
 		System.out.println("Shifting up");
+		
+		int scoreGenerated = 0;
 		
 		// Iterate through each column:
 		for (int col = 0; col < thisBoardSize; col++) {
@@ -101,7 +103,7 @@ public class Board {
 			// Make any merges:
 			for (int mergeI = 0; mergeI < thisBoardSize-1; mergeI++) {
 				if (board[mergeI+1][col].canMerge(board[mergeI][col])) {
-					board[mergeI+1][col].mergeVal(board[mergeI][col]);
+					scoreGenerated += board[mergeI+1][col].mergeVal(board[mergeI][col]);
 					
 					// Shift over all other values:
 					for (int shiftI = mergeI+1; shiftI < thisBoardSize-1; shiftI++) {
@@ -111,14 +113,16 @@ public class Board {
 				}
 			}
 		}
-		
+
 		createNewTile();
 		
-		
+		return scoreGenerated;
 	}
 	
-	public void shiftTileRight() {
+	public int shiftRight() {
 		System.out.println("Shifting down");
+		
+		int scoreGenerated = 0;
 		
 		// Iterate through each row:
 		for (int row = 0; row < thisBoardSize; row++) {
@@ -135,7 +139,7 @@ public class Board {
 			// Make any merges:
 			for (int mergeI = thisBoardSize-1; mergeI > 0; mergeI--) {
 				if (board[row][mergeI-1].canMerge(board[row][mergeI])) {
-					board[row][mergeI-1].mergeVal(board[row][mergeI]);
+					scoreGenerated += board[row][mergeI-1].mergeVal(board[row][mergeI]);
 					
 					// Shift over all other values:
 					for (int shiftI = mergeI-1; shiftI > 0; shiftI--) {
@@ -145,11 +149,16 @@ public class Board {
 				}
 			}
 		}
+		
 		createNewTile();
+		
+		return scoreGenerated;
 	}
 
-	public void shiftTileLeft() {
+	public int shiftLeft() {
 		System.out.println("Shifting up");
+		
+		int scoreGenerated = 0;
 		
 		// Iterate through each row:
 		for (int row = 0; row < thisBoardSize; row++) {
@@ -166,7 +175,7 @@ public class Board {
 			// Make any merges:
 			for (int mergeI = 0; mergeI < thisBoardSize-1; mergeI++) {
 				if (board[row][mergeI+1].canMerge(board[row][mergeI])) {
-					board[row][mergeI+1].mergeVal(board[row][mergeI]);
+					scoreGenerated += board[row][mergeI+1].mergeVal(board[row][mergeI]);
 					
 					// Shift over all other values:
 					for (int shiftI = mergeI+1; shiftI < thisBoardSize-1; shiftI++) {
@@ -178,14 +187,18 @@ public class Board {
 		}
 		
 		createNewTile();
+		
+		return scoreGenerated;
 	}
 	
-	public void shiftTileDown() {
+	public int shiftDown() {
 		System.out.println("Shifting down");
+		
+		int scoreGenerated = 0;
 		
 		// Iterate through each column:
 		for (int col = 0; col < thisBoardSize; col++) {
-			// Move everything up:
+			// Move everything down:
 			int moveI = thisBoardSize-1, emptyI = thisBoardSize-1;
 			while (moveI >= 0) {
 				if (!(board[moveI][col].isEmpty())) {
@@ -198,7 +211,7 @@ public class Board {
 			// Make any merges:
 			for (int mergeI = thisBoardSize-1; mergeI > 0; mergeI--) {
 				if (board[mergeI-1][col].canMerge(board[mergeI][col])) {
-					board[mergeI-1][col].mergeVal(board[mergeI][col]);
+					scoreGenerated += board[mergeI-1][col].mergeVal(board[mergeI][col]);
 					
 					// Shift over all other values:
 					for (int shiftI = mergeI-1; shiftI > 0; shiftI--) {
@@ -208,7 +221,10 @@ public class Board {
 				}
 			}
 		}
+		
 		createNewTile();
+		
+		return scoreGenerated;
 	}
 
 	// get a random empty tile
