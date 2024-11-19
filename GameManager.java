@@ -10,13 +10,13 @@ public class GameManager {
 	
 	private Board board;
 	private Boolean isPlaying;
-	private int curScore;
+	//private int curScore;
 	//private int thisBoardSize;
 
 	public GameManager(int boardSize) {
 		this.board = new Board(boardSize);
 		isPlaying = true;
-		curScore = 0;
+		//curScore = 0;
 	}
 	
 	public boolean isGameWon() {
@@ -34,17 +34,17 @@ public class GameManager {
 	// shift tiles on the board
 	public void shift(Direction dir) {
 		if (dir == Direction.UP) {
-			curScore += board.shiftUp();
+			board.shiftTile(Direction.UP);
 		} else if (dir == Direction.RIGHT) {
-			curScore += board.shiftRight();
+			board.shiftTile(Direction.RIGHT);
 		} else if (dir == Direction.LEFT) {
-			curScore += board.shiftLeft();
+			board.shiftTile(Direction.LEFT);
 		} else if (dir == Direction.DOWN) {
-			curScore += board.shiftDown();
+			board.shiftTile(Direction.DOWN);
 		}
 	}
 	
 	public int getCurScore() {
-		return curScore;
+		return board.getScore();
 	}
 }
