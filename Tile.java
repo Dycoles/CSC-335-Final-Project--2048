@@ -50,11 +50,13 @@ public class Tile {
 		}
 	}
 	
-	public void mergeVal(Tile to) {
+	public int mergeVal(Tile to) {
 		if (to != this) {
 			to.doubleVal();
 			value = 0;
+			return to.getValue();
 		}
+		return 0;
 	}
 	
 	private void setVal(int val) {
