@@ -1,11 +1,23 @@
 package mvc;
 
+import Components.Board;
+import Components.Direction;
+import Components.Leaderboard;
+import java.util.ArrayList;
+
+
 public class GameManager {
 	
 	private Board board;
+	private Leaderboard leaderboard;
+	private Boolean isPlaying;
+	//private int currScore;
+	//private int thisBoardSize;
 
 	public GameManager(int boardSize) {
-		board = new Board(boardSize);
+		this.board = new Board(boardSize);
+		this.leaderboard = new Leaderboard();
+		isPlaying = true;
 	}
 	
 	// shift tiles on the board
