@@ -82,21 +82,8 @@ public class Board {
 		return newBoard;
 	}
 	
-	// shift tiles on the board
-	public void shiftTile(Direction dir) {
-		if (dir == Direction.UP) {
-			shiftTileUp();
-		} else if (dir == Direction.RIGHT) {
-			shiftTileRight();
-		} else if (dir == Direction.LEFT) {
-			shiftTileLeft();
-		} else if (dir == Direction.DOWN) {
-			shiftTileDown();
-		}
-	}
-
 	// shift tiles upward
-	private void shiftTileUp() {
+	public void shiftTileUp() {
 		System.out.println("Shifting up");
 		
 		// Iterate through each column:
@@ -125,21 +112,12 @@ public class Board {
 			}
 		}
 		
-		
-		
-		
-//		for (int col=0;col<thisBoardSize;col++) {
-//			boolean sorted = false; // if there is no more shifts within the column that can occur
-//			while (!sorted) {
-//				
-//			}
-//		}
 		createNewTile();
 		
 		
 	}
 	
-	private void shiftTileRight() {
+	public void shiftTileRight() {
 		System.out.println("Shifting down");
 		
 		// Iterate through each row:
@@ -170,7 +148,7 @@ public class Board {
 		createNewTile();
 	}
 
-	private void shiftTileLeft() {
+	public void shiftTileLeft() {
 		System.out.println("Shifting up");
 		
 		// Iterate through each row:
@@ -202,7 +180,7 @@ public class Board {
 		createNewTile();
 	}
 	
-	private void shiftTileDown() {
+	public void shiftTileDown() {
 		System.out.println("Shifting down");
 		
 		// Iterate through each column:
