@@ -26,6 +26,10 @@ public class GameManager {
 	public boolean isGameLost() {
 		return board.gameLost();
 	}
+
+	public void printCurrentBoard() {
+		board.printBoard();
+	}
 	
 	// shift tiles on the board
 	public void shift(Direction dir) {
