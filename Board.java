@@ -114,7 +114,7 @@ public class Board {
 			for (int mergeI = 0; mergeI < thisBoardSize-1; mergeI++) {
 				if (board[mergeI+1][col].canMerge(board[mergeI][col])) {
 					board[mergeI+1][col].mergeVal(board[mergeI][col]);
-					
+					myScore+=board[mergeI][col].getValue();
 					// Shift over all other values:
 					for (int shiftI = mergeI+1; shiftI < thisBoardSize-1; shiftI++) {
 						board[shiftI+1][col].moveVal(board[shiftI][col]);
@@ -147,7 +147,7 @@ public class Board {
 			for (int mergeI = thisBoardSize-1; mergeI > 0; mergeI--) {
 				if (board[row][mergeI-1].canMerge(board[row][mergeI])) {
 					board[row][mergeI-1].mergeVal(board[row][mergeI]);
-					
+					myScore+=board[row][mergeI].getValue();
 					// Shift over all other values:
 					for (int shiftI = mergeI-1; shiftI > 0; shiftI--) {
 						board[row][shiftI-1].moveVal(board[row][shiftI]);
@@ -180,7 +180,7 @@ public class Board {
 			for (int mergeI = 0; mergeI < thisBoardSize-1; mergeI++) {
 				if (board[row][mergeI+1].canMerge(board[row][mergeI])) {
 					board[row][mergeI+1].mergeVal(board[row][mergeI]);
-					
+					myScore+=board[row][mergeI].getValue();
 					// Shift over all other values:
 					for (int shiftI = mergeI+1; shiftI < thisBoardSize-1; shiftI++) {
 						board[row][shiftI+1].moveVal(board[row][shiftI]);
@@ -213,7 +213,7 @@ public class Board {
 			for (int mergeI = thisBoardSize-1; mergeI > 0; mergeI--) {
 				if (board[mergeI-1][col].canMerge(board[mergeI][col])) {
 					board[mergeI-1][col].mergeVal(board[mergeI][col]);
-					
+					myScore+=board[mergeI][col].getValue();
 					// Shift over all other values:
 					for (int shiftI = mergeI-1; shiftI > 0; shiftI--) {
 						board[shiftI-1][col].moveVal(board[shiftI][col]);
@@ -318,13 +318,13 @@ public class Board {
 	}
 	
 	// print the board and it's values for testing purposes
-	// public void printBoard() {
-		// for (int row = 0; row < thisBoardSize; row++) {
-	        // for (int col = 0; col < thisBoardSize; col++) {
-	        //    System.out.print("[" + board[row][col].getValue() + "]");
-	        //}
+	//public void printBoard() {
+		//for (int row = 0; row < thisBoardSize; row++) {
+	       //for (int col = 0; col < thisBoardSize; col++) {
+	        	//System.out.print("[" + board[row][col].getValue() + "]");
+	      	//}
 	        //System.out.println();
-	    //}
+		//}
 	//}
 	
 	// increment score value
