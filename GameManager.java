@@ -1,10 +1,10 @@
+
 package mvc;
 
 import Components.Board;
 import Components.Direction;
-import Components.Leaderboard;
-
 import java.util.ArrayList;
+
 
 public class GameManager {
 	
@@ -17,6 +17,14 @@ public class GameManager {
 		this.board = new Board(boardSize);
 		isPlaying = true;
 		curScore = 0;
+	}
+	
+	public boolean isGameWon() {
+		return board.gameWon();
+	}
+	
+	public boolean isGameLost() {
+		return board.gameLost();
 	}
 	
 	// shift tiles on the board
