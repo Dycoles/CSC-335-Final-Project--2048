@@ -20,10 +20,13 @@ public class Board {
 	
 	// determine if the game has been won
 	public boolean gameWon() {
-		for (int row = 0; row < thisBoardSize; row++)
-			for (int col = 0; col < thisBoardSize; col++)
-				if (board[row][col].getValue() == WIN_VAL)
+		for (int row = 0; row < thisBoardSize; row++) {
+			for (int col = 0; col < thisBoardSize; col++) {
+				if (board[row][col].getValue() == WIN_VAL) {
 					return true;
+				}
+			}
+		}
 		return false;
 	}
 	
