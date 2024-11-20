@@ -20,6 +20,9 @@ public class BoardTest {
 		// testing canMove/canMerge
 		assertEquals(tile.canMove(twoTile), true);
 		assertEquals(tile.canMerge(twoTile), true);
+
+		// another issue with testing private methods, maybe we remove unused methods or change
+		// visibility for testing for coverage purposes 
 	}
 	
 	@Test
