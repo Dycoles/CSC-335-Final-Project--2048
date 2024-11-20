@@ -6,44 +6,59 @@ import Components.Direction;
 import java.util.ArrayList;
 
 
+
 public class GameManager {
 	
 	private Board board;
 	private Boolean isPlaying;
-	//private int curScore;
-	//private int thisBoardSize;
 
 	public GameManager(int boardSize) {
 		this.board = new Board(boardSize);
 		isPlaying = true;
-		//curScore = 0;
 	}
 	
+	// returns true if score is 2048
 	public boolean isGameWon() {
+		if (board.gameWon()) {
+			isPlaying = false;
+		}
 		return board.gameWon();
 	}
 	
+	// returns true if no more moves
 	public boolean isGameLost() {
+		if (board.gameLost()) {
+			isPlaying = false;
+		}
 		return board.gameLost();
 	}
+	
+	// checks if the game is still playing
+	public boolean isPlaying() {
+		return isPlaying;
+	}
 
+	// print current board
 	public void printCurrentBoard() {
 		board.printBoard();
 	}
 	
 	// shift tiles on the board
 	public void shift(Direction dir) {
-		if (dir == Direction.UP) {
-			board.shiftTile(Direction.UP);
-		} else if (dir == Direction.RIGHT) {
-			board.shiftTile(Direction.RIGHT);
-		} else if (dir == Direction.LEFT) {
-			board.shiftTile(Direction.LEFT);
-		} else if (dir == Direction.DOWN) {
-			board.shiftTile(Direction.DOWN);
+		// check for valid game
+		if (!isPlaying) {
+			return;
+		}
+		// shift tile
+		board.shiftTile(dir);
+		// checks if game is over, sets isPlaying
+		if (isGameWon() || isGameLost()) {
+			isPlaying = false;
+			return;
 		}
 	}
 	
+	// gets current score
 	public int getCurScore() {
 		return board.getScore();
 	}
