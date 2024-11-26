@@ -44,4 +44,145 @@ public class BoardTest {
 		// (ex. making our shift methods return 1 if there was a movement, and 0 if there was not)
 	}
 	
+	@Test
+	public void testShiftUp() {
+		// initialize board
+		Board board = new Board(4);
+		// empty board 
+		board.emptyBoard();
+		// insert specific tile
+		board.insertTestTile(1, 1, 8);
+		// shift
+		board.shiftTile(Direction.UP);
+		// use copy of board to compare vals
+		Tile[][] copy = board.getBoardCopy();
+		assertEquals(copy[0][1].getValue(), 8);
+	}
+	
+	@Test
+	public void testShiftUpMerge() {
+		Board board = new Board(4);
+		board.emptyBoard();
+		board.insertTestTile(1, 1, 8);
+		board.insertTestTile(0, 1, 8);
+		board.shiftTile(Direction.UP);
+		Tile[][] copy = board.getBoardCopy();
+		assertEquals(copy[0][1].getValue(), 16);
+		assertEquals(board.getScore(), 16);
+		board.insertTestTile(2, 1, 16);
+		board.shiftTile(Direction.UP);
+		copy = board.getBoardCopy();
+		assertEquals(copy[0][1].getValue(), 32);
+		assertEquals(board.getScore(), 48);
+	}
+	
+	@Test
+	public void testShiftUpDontMerge() {
+		Board board = new Board(4);
+		board.emptyBoard();
+		board.insertTestTile(3, 1, 16);
+		board.insertTestTile(0, 1, 8);
+		board.shiftTile(Direction.UP);
+		Tile[][] copy = board.getBoardCopy();
+		assertEquals(copy[1][1].getValue(), 16);
+		assertEquals(copy[0][1].getValue(), 8);
+		assertEquals(board.getScore(), 0);
+		// shift again for coverage; no new tile created
+		board.shiftTile(Direction.UP);
+	}
+	
+	@Test
+	public void testShiftDown() {
+		Board board = new Board(4);
+		// empty board 
+		board.emptyBoard();
+		// insert specific tile
+		board.insertTestTile(1, 1, 8);
+		// shift
+		board.shiftTile(Direction.DOWN);
+		// use copy of board to compare vals
+		Tile[][] copy = board.getBoardCopy();
+		assertEquals(copy[3][1].getValue(), 8);
+	}
+	
+	@Test
+	public void testShiftDownMerge() {
+		Board board = new Board(4);
+		board.emptyBoard();
+		board.insertTestTile(1, 1, 8);
+		board.insertTestTile(0, 1, 8);
+		board.shiftTile(Direction.DOWN);
+		Tile[][] copy = board.getBoardCopy();
+		assertEquals(copy[3][1].getValue(), 16);
+		assertEquals(board.getScore(), 16);
+		board.insertTestTile(2, 1, 16);
+		board.shiftTile(Direction.DOWN);
+		copy = board.getBoardCopy();
+		assertEquals(copy[3][1].getValue(), 32);
+		assertEquals(board.getScore(), 48);
+	}
+	
+	@Test
+	public void testShiftDownDontMerge() {
+		
+	}
+	
+	@Test
+	public void testShiftLeft() {
+		Board board = new Board(4);
+		// empty board 
+		board.emptyBoard();
+		// insert specific tile
+		board.insertTestTile(1, 1, 8);
+		// shift
+		board.shiftTile(Direction.LEFT);
+		// use copy of board to compare vals
+		Tile[][] copy = board.getBoardCopy();
+		assertEquals(copy[1][0].getValue(), 8);
+	}
+	
+	@Test
+	public void testShiftLeftMerge() {
+		
+	}
+	
+	@Test
+	public void testShiftLeftDontMerge() {
+		
+	}
+	
+	@Test 
+	public void testShiftRight() {
+		Board board = new Board(4);
+		// empty board 
+		board.emptyBoard();
+		// insert specific tile
+		board.insertTestTile(1, 1, 8);
+		// shift
+		board.shiftTile(Direction.RIGHT);
+		// use copy of board to compare vals
+		Tile[][] copy = board.getBoardCopy();
+		assertEquals(copy[1][3].getValue(), 8);
+	}
+	
+	@Test
+	public void testShiftRightMerge() {
+		
+	}
+	
+	@Test
+	public void testShiftRightDontMerge() {
+		
+	}
+	
+	@Test
+	public void testGameWon() {
+		
+	}
+	
+	@Test
+	public void testGameLost() {
+		
+	}
+	
 }
