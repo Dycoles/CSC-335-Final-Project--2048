@@ -1,5 +1,3 @@
-package Components;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -321,22 +319,42 @@ public class Board {
 	}
 	
 	// print the board and it's values for testing purposes
-	//public void printBoard() {
-		//for (int row = 0; row < thisBoardSize; row++) {
-	       //for (int col = 0; col < thisBoardSize; col++) {
-	        	//System.out.print("[" + board[row][col].getValue() + "]");
-	      	//}
-	        //System.out.println();
-		//}
-	//}
-	
-	// increment score value
-	private void incrementScore(int incBy) {
-		myScore += incBy;
+	public void printBoard() {
+		for (int row = 0; row < thisBoardSize; row++) {
+	       for (int col = 0; col < thisBoardSize; col++) {
+	        	System.out.print("[" + board[row][col].getValue() + "]");
+	      	}
+	        System.out.println();
+		}
 	}
-	
+		
 	// get score value
 	public int getScore() {
 		return myScore;
+	}
+	
+	// all  methods below used for testing; not part of actual program
+	public void emptyBoard() {
+		for (int row = 0; row < thisBoardSize; row++) {
+			for (int col = 0; col < thisBoardSize; col++) {
+				board[row][col] = new Tile();
+			}
+		}
+	}
+	
+	public Tile[][] getBoardCopy() {
+		Tile[][] boardCopy = new Tile[thisBoardSize][thisBoardSize];
+		for (int row = 0; row < thisBoardSize; row++) {
+			for (int col = 0; col < thisBoardSize; col++) {
+				boardCopy[row][col] = board[row][col];
+			}
+		}
+		return boardCopy;
+	}
+	
+	public void insertTestTile(int x, int y, int val) {
+		// create new tile with specific value
+		Tile newTile = new Tile(val);
+		board[x][y] = newTile;
 	}
 }
