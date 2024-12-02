@@ -3,9 +3,6 @@ package mvc;
 
 import Components.Board;
 import Components.Direction;
-import java.util.ArrayList;
-
-
 
 public class GameManager {
 	
@@ -61,5 +58,10 @@ public class GameManager {
 	// gets current score
 	public int getCurScore() {
 		return board.getScore();
+	}
+	
+	// Add a composite observer to the model:
+	public void addCompositeObserver(Composite2048Observer o) {
+		board.addCompositeObserver(o);
 	}
 }
