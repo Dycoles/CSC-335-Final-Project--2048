@@ -34,7 +34,7 @@ public enum Direction {
 				return Direction.LEFT;
 			case "right":
 				return Direction.RIGHT;
-			case "dowm":
+			case "down":
 				return Direction.DOWN;
 			default:
 				return null;
