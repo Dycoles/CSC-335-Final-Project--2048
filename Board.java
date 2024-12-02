@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -8,12 +9,14 @@ public class Board {
 	private Tile[][] board;
 	private int myScore;
 	public static Random rand = new Random();
+	private ArrayList<Composite2048Observer> compObservers;
 	
 	// initialize board with custom size
 	public Board(int boardSize) {
 		thisBoardSize = boardSize;
 		myScore = 0;
 		board = initializeBoard(thisBoardSize);
+		compObservers = new ArrayList<>();
 	}
 	
 	// determine if the game has been won
@@ -94,6 +97,8 @@ public class Board {
 		} else if (dir == Direction.DOWN) {
 			shiftTileDown();
 		}
+		
+		updateObservers();
 	}
 
 	// shift tiles upward
@@ -356,5 +361,22 @@ public class Board {
 		// create new tile with specific value
 		Tile newTile = new Tile(val);
 		board[x][y] = newTile;
+	}
+	
+	// Add a composite observer to the model:
+	public void addCompositeObserver(Composite2048Observer o) {
+		compObservers.add(o);
+		updateObservers();	//FIXME
+	}
+	
+	// Update all current composite observers:
+	private void updateObservers() {
+		for (Composite2048Observer observer : compObservers) {
+			for (int row = 0; row  < thisBoardSize; row++) {
+				for (int col = 0; col < thisBoardSize; col++) {
+					observer.updateObserver(row, col, board[row][col].getValue());
+				}
+			}
+		}
 	}
 }
