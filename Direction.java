@@ -23,7 +23,7 @@ public enum Direction {
 	}
 	
 	// Return the Direction corresponding to the accepted String:
-	public Direction strToDir(String str) {
+	public static Direction strToDir(String str) {
 		str = str.toLowerCase();
 		
 		// Compare possible values:
