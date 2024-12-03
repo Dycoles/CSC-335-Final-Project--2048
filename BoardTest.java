@@ -22,6 +22,22 @@ public class BoardTest {
 		assertEquals(Direction.strToDir("right"),Direction.RIGHT);
 		assertEquals(Direction.strToDir("not this direction"),null);
 	}
+
+	@Test
+	public void testLeaderboard() {
+		Leaderboard leaderboard = new Leaderboard();
+		assertEquals(leaderboard.getName(),"");
+		
+		//leaderboard.setName("hip hip");					# ADD TESTS AFTER IMPLEMENTATION
+		//assertEquals(leaderboard.getName(),"hip hip");
+		
+		
+		//leaderboard.addToFile();						# ADD TESTS AFTER IMPLEMENTATION
+		//leaderboard.loadFromFile();
+		
+		ArrayList<Integer> empty = new ArrayList<Integer>();
+		assertEquals(leaderboard.getScores(),empty);
+	}
 	
 	@Test
 	public void testTile() {
