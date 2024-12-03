@@ -99,6 +99,49 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		this.add(leaderboardPanel, "Leaderboard");
 	}
 
+	private void keyBindings() {
+		InputMap inputMap = gamePanel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW);
+		ActionMap actionMap = gamePanel.getActionMap();
+		// Use ButtonListener to use with ActionListener
+		ButtonListener newAction = new ButtonListener(); 
+		
+		// WASD key bindings
+		inputMap.put(KeyStroke.getKeyStroke('W', 0), "up");
+		inputMap.put(KeyStroke.getKeyStroke('A', 0), "left");
+		inputMap.put(KeyStroke.getKeyStroke('S', 0), "down");
+		inputMap.put(KeyStroke.getKeyStroke('D', 0), "right");
+		
+		// arrow key key bindings
+		inputMap.put(KeyStroke.getKeyStroke("UP"), "up");
+		inputMap.put(KeyStroke.getKeyStroke("LEFT"), "left");
+		inputMap.put(KeyStroke.getKeyStroke("DOWN"), "down");
+		inputMap.put(KeyStroke.getKeyStroke("RIGHT"), "right");
+		
+		actionMap.put("up", new AbstractAction() {
+			public void actionPerformed(ActionEvent e) {
+				newAction.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "up"));
+			}
+		});
+		
+		actionMap.put("left", new AbstractAction() {
+			public void actionPerformed(ActionEvent e) {
+				newAction.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "left"));
+			}
+		});
+		
+		actionMap.put("right", new AbstractAction() {
+			public void actionPerformed(ActionEvent e) {
+				newAction.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "right"));
+			}
+		});
+		
+		actionMap.put("down", new AbstractAction() {
+			public void actionPerformed(ActionEvent e) {
+				newAction.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "down"));
+			}
+		});
+	}
+	
 	public void startGame() {
 		// Retrieve and verify board size input:
 		int boardSize;
@@ -116,6 +159,7 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		
 		// Remove intro panel contents:
 		layout.show(getContentPane(), "Game");
+		keyBindings();
 		
 		// Create the manager:
 		manager = new GameManager(boardSize);
