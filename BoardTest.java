@@ -7,6 +7,23 @@ import org.junit.jupiter.api.Test;
 public class BoardTest {
 
 	@Test
+	public void testDirection() {
+		assertEquals(Direction.UP.horiDiff(),0);
+		assertEquals(Direction.LEFT.horiDiff(),-1);
+		assertEquals(Direction.RIGHT.horiDiff(),1);
+		
+		assertEquals(Direction.LEFT.vertDiff(),0);
+		assertEquals(Direction.UP.vertDiff(),-1);
+		assertEquals(Direction.DOWN.vertDiff(),1);
+		
+		assertEquals(Direction.strToDir("left"),Direction.LEFT);
+		assertEquals(Direction.strToDir("up"),Direction.UP);
+		assertEquals(Direction.strToDir("down"),Direction.DOWN);	
+		assertEquals(Direction.strToDir("right"),Direction.RIGHT);
+		assertEquals(Direction.strToDir("not this direction"),null);
+	}
+	
+	@Test
 	public void testTile() {
 		Tile tile = new Tile();
 		assertEquals(tile.getValue(), 0);
