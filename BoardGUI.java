@@ -199,6 +199,9 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		sizeLabel.setBounds(200, -50, 600, 500);
 		boardSizePanel.add(sizeLabel);
 		
+		// TODO: Maybe Two Radio Buttons 1) Default size (4) or 2) Custom size with input box
+		//		 then update GameManager accordingly ??? Do u see the vision ???
+		
 		// Set up the go button (for command execution):
 		startButton = new JButton("Start Game");
 		startButton.setActionCommand("start");
