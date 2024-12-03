@@ -2,7 +2,7 @@
 public enum Direction {
 	UP, DOWN, LEFT, RIGHT;
 	
-	// Horizontal difference after shifting in this direction:
+	/*// Horizontal difference after shifting in this direction:
 	public int horiDiff() {
 		if (this.equals(Direction.LEFT))
 			return -1;
@@ -20,7 +20,7 @@ public enum Direction {
 			return 1;
 		else
 			return 0;
-	}
+	}*/
 	
 	// Return the Direction corresponding to the accepted String:
 	public static Direction strToDir(String str) {
