@@ -38,6 +38,7 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 	private JButton boardSizeButton;
 	private CardLayout layout;
 	private BoxLayout gameLayout;
+	private static final int DEFAULT_BOARD_SIZE = 4;
 
 	public BoardGUI() {
 		manager = new GameManager(4);
@@ -69,18 +70,18 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		introPanel.add(startButton);
 
 		// create board size button
-		startButton = new JButton("Change Board Size");
-		startButton.setBounds(400, 300, 200, 75);
-		startButton.setActionCommand("boardSize");
-		startButton.addActionListener(new ButtonListener());
-		introPanel.add(startButton);
+		boardSizeButton = new JButton("Change Board Size");
+		boardSizeButton.setBounds(400, 300, 200, 75);
+		boardSizeButton.setActionCommand("boardSize");
+		boardSizeButton.addActionListener(new ButtonListener());
+		introPanel.add(boardSizeButton);
 
 		// create LeaderBoard button
-		startButton = new JButton("Leaderboard");
-		startButton.setBounds(400, 450, 200, 75);
-		startButton.setActionCommand("leaderboard");
-		startButton.addActionListener(new ButtonListener());
-		introPanel.add(startButton);
+		leaderboardButton = new JButton("Leaderboard");
+		leaderboardButton.setBounds(400, 450, 200, 75);
+		leaderboardButton.setActionCommand("leaderboard");
+		leaderboardButton.addActionListener(new ButtonListener());
+		introPanel.add(leaderboardButton);
 
 		exitButton = new JButton("Exit");
 		exitButton.setBounds(400, 600, 200, 75);
@@ -212,6 +213,11 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 				break;
 			}
 		}
+	}
+	
+	private void getBoardSize() {
+		layout.removeLayoutComponent(introPanel);
+		
 	}
 
 	public void updateObserver(int row, int col, int value) {
