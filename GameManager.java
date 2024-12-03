@@ -8,9 +8,11 @@ public class GameManager {
 	
 	private Board board;
 	private Boolean isPlaying;
+	private Leaderboard leaderboard;
 
 	public GameManager(int boardSize) {
 		this.board = new Board(boardSize);
+		this.leaderboard = new Leaderboard();
 		isPlaying = true;
 	}
 	
