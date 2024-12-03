@@ -220,6 +220,106 @@ public class BoardTest {
 		// shift again for coverage; no new tile created
 		board.shiftTile(Direction.RIGHT);
 	}
+
+	// checks the edge case where we shift in a direction but no movement 
+	// or merges occur so no new tiles are formed
+	@Test
+	public void testShiftUpEdge() {
+		Board board = new Board(4);
+		board.emptyBoard();
+		board.insertTestTile(0, 2, 16);
+		board.insertTestTile(0, 3, 8);
+		board.insertTestTile(1, 3, 16);
+		board.insertTestTile(1, 2, 8);
+		board.insertTestTile(2, 2, 16);
+		board.insertTestTile(2, 3, 8);
+		Tile[][] copy = board.getBoardCopy();
+		board.shiftTile(Direction.UP);
+		assertEquals(copy[0][2].getValue(), 16);
+		assertEquals(copy[0][3].getValue(), 8);
+		assertEquals(copy[1][3].getValue(), 16);
+		assertEquals(copy[1][2].getValue(), 8);
+		assertEquals(copy[2][2].getValue(), 16);
+		assertEquals(copy[2][3].getValue(), 8);
+		assertEquals(board.getScore(), 0);
+		assertFalse(board.gameWon());
+		assertFalse(board.gameLost());
+	}
+	
+	// checks the edge case where we shift in a direction but no movement 
+	// or merges occur so no new tiles are formed
+	@Test
+	public void testShiftLeftEdge() {
+		Board board = new Board(4);
+		board.emptyBoard();
+		board.insertTestTile(1, 0, 16);
+		board.insertTestTile(1, 1, 8);
+		board.insertTestTile(2, 0, 16);
+		board.insertTestTile(2, 1, 8);
+		board.insertTestTile(3, 0, 16);
+		board.insertTestTile(3, 1, 8);
+		Tile[][] copy = board.getBoardCopy();
+		board.shiftTile(Direction.LEFT);
+		assertEquals(copy[1][0].getValue(), 16);
+		assertEquals(copy[1][1].getValue(), 8);
+		assertEquals(copy[2][0].getValue(), 16);
+		assertEquals(copy[2][1].getValue(), 8);
+		assertEquals(copy[3][0].getValue(), 16);
+		assertEquals(copy[3][1].getValue(), 8);
+		assertEquals(board.getScore(), 0);
+		assertFalse(board.gameWon());
+		assertFalse(board.gameLost());
+	}
+	
+	// checks the edge case where we shift in a direction but no movement 
+	// or merges occur so no new tiles are formed
+	@Test
+	public void testShiftDownEdge() {
+		Board board = new Board(4);
+		board.emptyBoard();
+		board.insertTestTile(1, 2, 16);
+		board.insertTestTile(1, 3, 8);
+		board.insertTestTile(2, 3, 16);
+		board.insertTestTile(2, 2, 8);
+		board.insertTestTile(3, 2, 16);
+		board.insertTestTile(3, 3, 8);
+		Tile[][] copy = board.getBoardCopy();
+		board.shiftTile(Direction.DOWN);
+		assertEquals(copy[1][2].getValue(), 16);
+		assertEquals(copy[1][3].getValue(), 8);
+		assertEquals(copy[2][3].getValue(), 16);
+		assertEquals(copy[2][2].getValue(), 8);
+		assertEquals(copy[3][2].getValue(), 16);
+		assertEquals(copy[3][3].getValue(), 8);
+		assertEquals(board.getScore(), 0);
+		assertFalse(board.gameWon());
+		assertFalse(board.gameLost());
+	}
+	
+	// checks the edge case where we shift in a direction but no movement 
+	// or merges occur so no new tiles are formed
+	@Test
+	public void testShiftRightEdge() {
+		Board board = new Board(4);
+		board.emptyBoard();
+		board.insertTestTile(1, 3, 16);
+		board.insertTestTile(1, 2, 8);
+		board.insertTestTile(2, 3, 16);
+		board.insertTestTile(2, 2, 8);
+		board.insertTestTile(3, 3, 16);
+		board.insertTestTile(3, 2, 8);
+		Tile[][] copy = board.getBoardCopy();
+		board.shiftTile(Direction.RIGHT);
+		assertEquals(copy[1][3].getValue(), 16);
+		assertEquals(copy[1][2].getValue(), 8);
+		assertEquals(copy[2][3].getValue(), 16);
+		assertEquals(copy[2][2].getValue(), 8);
+		assertEquals(copy[3][3].getValue(), 16);
+		assertEquals(copy[3][2].getValue(), 8);
+		assertEquals(board.getScore(), 0);
+		assertFalse(board.gameWon());
+		assertFalse(board.gameLost());
+	}
 	
 	@Test
 	public void testGameWon() {
