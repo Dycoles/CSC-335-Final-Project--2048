@@ -410,4 +410,34 @@ public class BoardTest {
 		board.insertTestTile(3, 3, 16);
 		assertFalse(board.gameLost());
 	}
+
+	@Test
+	public void testGameManagerGetters() {
+		GameManager game = new GameManager(4);
+		
+		assertFalse(game.isGameWon());
+		assertFalse(game.isGameLost());
+		assertTrue(game.isPlaying());
+		assertEquals(game.getCurScore(),0);
+	}
+	
+	@Test
+	public void testGameManagerVoid() {
+		
+		// we need to find a way to test the void methods for coverage
+		// if we cant find a solution to test those methods, lets add
+		// an effectivly meaningless boolean return so we can get the
+		// coverage
+		
+		//game.shift(Direction.UP);
+		//game.shift(Direction.LEFT);
+		//game.shift(Direction.RIGHT);
+		//game.shift(Direction.DOWN);
+		
+		//game.printCurrentBoard();
+		
+		//game.addCompositeObserver();
+		
+	}
+	
 }
