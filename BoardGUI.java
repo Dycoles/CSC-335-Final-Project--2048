@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-
 import javax.swing.border.Border;
 import javax.swing.*;
 
@@ -17,7 +16,7 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 	private JPanel introPanel, gamePanel, boardPanel, leaderboardPanel, boardSizePanel;
 	private JPanel[][] itemPanels;
 	private JLabel titleLabel, gameLabel, scoreLabel, sizeLabel, leaderboardLabel;
-	private JButton startButton, exitButton, submitButton;
+	private JButton startButton, exitButton, submitButton, mainMenuButton;
 	private JButton upButton, leftButton, rightButton, downButton;
 	private JButton leaderboardButton, boardSizeButton;
 	private CardLayout layout;
@@ -302,6 +301,13 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		leaderboardLabel.setBounds(200, -50, 600, 500);
 		leaderboardPanel.add(leaderboardLabel);
 		
+		// create main menu button
+		mainMenuButton = new JButton("Back to Main Menu");
+		mainMenuButton.setBounds(400, 450, 200, 75);
+		mainMenuButton.setActionCommand("mainMenu");
+		mainMenuButton.addActionListener(new ButtonListener());
+		leaderboardPanel.add(mainMenuButton);
+		
 		// TODO: display leaderboard
 	}
 
@@ -320,6 +326,11 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 			    break;
 			case "leaderboard":
 				getLeaderboard();
+				break;
+			case "mainmenu":
+				getContentPane().removeAll();
+				setUp();
+				layout.show(getContentPane(), "Intro");
 				break;
 			case "submit":
 				writeToLeaderboard(nameTextField.getText(), manager.getCurScore());
