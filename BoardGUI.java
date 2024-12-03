@@ -20,13 +20,13 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 	private JPanel introPanel, gamePanel, boardPanel, leaderboardPanel, boardSizePanel;
 	private JPanel[][] itemPanels;
 	private JLabel titleLabel, gameLabel, scoreLabel, sizeLabel, leaderboardLabel;
-	private JButton startButton, exitButton;
+	private JButton startButton, exitButton, submitButton;
 	private JButton upButton, leftButton, rightButton, downButton;
 	private JButton leaderboardButton, boardSizeButton;
 	private CardLayout layout;
 	private BoxLayout gameLayout, boardSizeLayout;
 	private JRadioButton radioButton1, radioButton2;
-	private JTextField inputTextField;
+	private JTextField inputTextField, nameTextField;
 	private static final int DEFAULT_BOARD_SIZE = 4;
 
 	public BoardGUI() {
@@ -50,6 +50,9 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		titleLabel.setFont(new Font("Title", Font.PLAIN, 40));
 		titleLabel.setBounds(450, 0, 100, 100);
 		introPanel.add(titleLabel);
+		
+		// Create the size text field with its default size:
+		inputTextField = new JTextField(String.valueOf(DEFAULT_BOARD_SIZE));
 
 		// create start button
 		startButton = new JButton("Start Game");
@@ -97,18 +100,35 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 	}
 
 	public void startGame() {
+		// Retrieve and verify board size input:
+		int boardSize;
+		try {
+			boardSize = Integer.parseInt(inputTextField.getText());
+		} catch (NumberFormatException e) {
+			sizeLabel.setText("Please enter a valid integer from 4 to 10.");
+			return;
+		}
+		
+		if (boardSize < 4 || boardSize > 10) {
+			sizeLabel.setText("Please enter a valid integer from 4 to 10.");
+			return;
+		}
+		
 		// Remove intro panel contents:
 		layout.show(getContentPane(), "Game");
+		
+		// Create the manager:
+		manager = new GameManager(boardSize);
 
 		// Create the board:
 		boardPanel = new JPanel();
 		boardPanel.setLayout(new BorderLayout());
 		boardPanel.setBounds(250, 100, 600, 600);
-		GridLayout boardLayout = new GridLayout(4, 4);
+		GridLayout boardLayout = new GridLayout(boardSize, boardSize);
 		boardPanel.setLayout(boardLayout);
-		itemPanels = new JPanel[4][4];
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
+		itemPanels = new JPanel[boardSize][boardSize];
+		for (int i = 0; i < boardSize; i++) {
+			for (int j = 0; j < boardSize; j++) {
 				JPanel itemPanel = new JPanel();
 				itemPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 				itemPanel.setLayout(new GridBagLayout());
@@ -125,7 +145,8 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		// set up the title label
 		titleLabel = new JLabel("2048", JLabel.CENTER);
 		titleLabel.setFont(new Font("Title", Font.PLAIN, 25));
-		titleLabel.setBounds(450, 0, 100, 100);
+		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		titleLabel.setBounds(300, 0, 400, 100);
 		gamePanel.add(titleLabel);
 
 		// TODO: add key listener
@@ -167,6 +188,19 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		downButton.setActionCommand("down");
 		downButton.addActionListener(new ButtonListener());
 		gamePanel.add(downButton);
+		
+		// Set up the name field and submit buttons for the leaderboard:
+		nameTextField = new JTextField("Name");
+		nameTextField.setBounds(50, 550, 100, 30);
+		nameTextField.setVisible(false);
+		gamePanel.add(nameTextField);
+		
+		submitButton = new JButton("Submit");
+		submitButton.setActionCommand("submit");
+		submitButton.addActionListener(new ButtonListener());
+		submitButton.setBounds(50, 600, 100, 60);
+		submitButton.setVisible(false);
+		gamePanel.add(submitButton);
 
 		// Set up the exit button for gamePanel:
 		exitButton = new JButton("Exit");
@@ -193,14 +227,16 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		titleLabel.setBounds(450, 0, 100, 100);
 		boardSizePanel.add(titleLabel);
 		
-		// set up the title label
-		sizeLabel = new JLabel("Please Select Default Board Size or Enter Custom Size, Then Press 'Start'.", JLabel.CENTER);
+		// set up the size label
+		sizeLabel = new JLabel("Please Enter Custom Size From 4 To 10, Then Press 'Start'.", JLabel.CENTER);
 		sizeLabel.setFont(new Font("Arial", Font.PLAIN, 15));
 		sizeLabel.setBounds(200, -50, 600, 500);
 		boardSizePanel.add(sizeLabel);
 		
-		// TODO: Maybe Two Radio Buttons 1) Default size (4) or 2) Custom size with input box
-		//		 then update GameManager accordingly ??? Do u see the vision ???
+		// Set up the input text field:
+		inputTextField.setBounds(450, 300, 100, 30);
+		inputTextField.setFont(new Font("Arial", Font.PLAIN, 16));
+		boardSizePanel.add(inputTextField);
 		
 		// Set up the go button (for command execution):
 		startButton = new JButton("Start Game");
@@ -244,22 +280,45 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 			case "leaderboard":
 				getLeaderboard();
 				break;
+			case "submit":
+				writeToLeaderboard(nameTextField.getText(), manager.getCurScore());
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+				System.exit(0);
+				break;
 			case "up":
-				updateScore();
 			case "left":
-				updateScore();
 			case "right":
-				updateScore();
 			case "down":
 				manager.shift(Direction.strToDir(cmd));
 				manager.printCurrentBoard();
 				updateScore();
+				
+				// Check to see if the game is over:
+				if (manager.isGameWon() || manager.isGameLost()) {
+					if (manager.isGameWon()) {
+						titleLabel.setText("You won! Please enter your name.");
+					} else {
+						titleLabel.setText("You lost! Please enter your name.");
+					}
+					
+					nameTextField.setVisible(true);
+					submitButton.setVisible(true);
+				}
+				
 				break;
 			case "exit":
 				System.exit(0);
 				break;
 			}
 		}
+	}
+	
+	private void writeToLeaderboard(String name, int score) {
+		
 	}
 
 	public void updateObserver(int row, int col, int value) {
