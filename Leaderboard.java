@@ -1,10 +1,10 @@
-package Components;
-
 import java.util.ArrayList;
 
 public class Leaderboard {
+	
 	private String name;
 	private ArrayList<Integer> highScores;
+	
 	public Leaderboard() {
 		name = "";
 		highScores = new ArrayList<Integer>();
@@ -12,6 +12,14 @@ public class Leaderboard {
 	
 	public String getName() {
 		return name;
+	}
+	
+	private void addToFile() {
+		// TODO
+	}
+	
+	private void loadFromFile() {
+		// TODO
 	}
 	
 	public ArrayList<Integer> getScores() {
