@@ -2,42 +2,31 @@
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+
 import javax.swing.border.Border;
+import javax.swing.*;
 
 import java.awt.event.*;
 
 public class BoardGUI extends JFrame implements Composite2048Observer {
 
 	private GameManager manager;
-	private JPanel introPanel;
-	private JPanel gamePanel;
-	private JPanel boardPanel;
+	private JPanel introPanel, gamePanel, boardPanel, leaderboardPanel, boardSizePanel;
 	private JPanel[][] itemPanels;
-	private JLabel titleLabel;
-	private JLabel gameLabel;
-	private JLabel scoreLabel;
-	private JButton startButton;
-	private JButton upButton;
-	private JButton leftButton;
-	private JButton rightButton;
-	private JButton downButton;
-	private JButton exitButton;
-	private JButton leaderboardButton;
-	private JButton boardSizeButton;
+	private JLabel titleLabel, gameLabel, scoreLabel, sizeLabel, leaderboardLabel;
+	private JButton startButton, exitButton;
+	private JButton upButton, leftButton, rightButton, downButton;
+	private JButton leaderboardButton, boardSizeButton;
 	private CardLayout layout;
-	private BoxLayout gameLayout;
+	private BoxLayout gameLayout, boardSizeLayout;
+	private JRadioButton radioButton1, radioButton2;
+	private JTextField inputTextField;
 	private static final int DEFAULT_BOARD_SIZE = 4;
 
 	public BoardGUI() {
@@ -92,20 +81,24 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		gamePanel = new JPanel();
 		gamePanel.setLayout(gameLayout);
 		gamePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-		this.add(introPanel);
-		this.add(gamePanel);
-		layout.addLayoutComponent(introPanel, "Intro");
-		layout.addLayoutComponent(gamePanel, "Game");
+		
+		boardSizePanel = new JPanel();
+		boardSizePanel.setLayout(boardSizeLayout);
+		boardSizePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		
+		leaderboardPanel = new JPanel();
+		leaderboardPanel.setLayout(gameLayout);
+		leaderboardPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+	    
+		this.add(introPanel, "Intro");
+		this.add(gamePanel, "Game");
+		this.add(boardSizePanel, "Size");
+		this.add(leaderboardPanel, "Leaderboard");
 	}
 
 	public void startGame() {
 		// Remove intro panel contents:
-		layout.removeLayoutComponent(introPanel);
-
-		// Create button dimensions:
-		Dimension buttonSize = new Dimension(180, 40);
-		int gap = 40;
+		layout.show(getContentPane(), "Game");
 
 		// Create the board:
 		boardPanel = new JPanel();
@@ -128,16 +121,22 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		}
 		gamePanel.add(boardPanel);
 		manager.addCompositeObserver(this);
+		
+		// set up the title label
+		titleLabel = new JLabel("2048", JLabel.CENTER);
+		titleLabel.setFont(new Font("Title", Font.PLAIN, 25));
+		titleLabel.setBounds(450, 0, 100, 100);
+		gamePanel.add(titleLabel);
 
 		// TODO: add key listener
 		gameLabel = new JLabel("Move the tiles with the buttons below\nor the arrows on your keyboard!");
-		gameLabel.setBounds(50, -50, 600, 200);
+		gameLabel.setBounds(50, -25, 600, 200);
 		gamePanel.add(gameLabel);
 		
 		// Display player's current score
 		scoreLabel = new JLabel("Current Score: 0");
 		scoreLabel.setFont(new Font("score", Font.PLAIN, 20));
-		scoreLabel.setBounds(10, 50, 400, 400);
+		scoreLabel.setBounds(10, 10, 400, 400);
 		gamePanel.add(scoreLabel);
 
 		// Create the directional buttons:
@@ -184,6 +183,47 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		int currScore = manager.getCurScore();
 		scoreLabel.setText("Current Score:" + currScore);
 	}
+	
+	private void getBoardSize() {
+		layout.show(getContentPane(), "Size");
+		
+		// set up the title label
+		titleLabel = new JLabel("2048", JLabel.CENTER);
+		titleLabel.setFont(new Font("Title", Font.PLAIN, 25));
+		titleLabel.setBounds(450, 0, 100, 100);
+		boardSizePanel.add(titleLabel);
+		
+		// set up the title label
+		sizeLabel = new JLabel("Please Select Default Board Size or Enter Custom Size, Then Press 'Start'.", JLabel.CENTER);
+		sizeLabel.setFont(new Font("Arial", Font.PLAIN, 15));
+		sizeLabel.setBounds(200, -50, 600, 500);
+		boardSizePanel.add(sizeLabel);
+		
+		// Set up the go button (for command execution):
+		startButton = new JButton("Start Game");
+		startButton.setActionCommand("start");
+		startButton.addActionListener(new ButtonListener());
+		startButton.setBounds(450, 600, 100, 40);
+		boardSizePanel.add(startButton);
+	}
+	
+	private void getLeaderboard() {
+		layout.show(getContentPane(), "Leaderboard");
+		
+		// set up the title label
+		titleLabel = new JLabel("2048", JLabel.CENTER);
+		titleLabel.setFont(new Font("Title", Font.PLAIN, 25));
+		titleLabel.setBounds(450, 0, 100, 100);
+		leaderboardPanel.add(titleLabel);
+		
+		// set up the title label
+		leaderboardLabel = new JLabel("Leaderboard", JLabel.CENTER);
+		leaderboardLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+		leaderboardLabel.setBounds(200, -50, 600, 500);
+		leaderboardPanel.add(leaderboardLabel);
+		
+		// TODO: display leaderboard
+	}
 
 	// Listener class to respond to button presses:
 	private class ButtonListener implements ActionListener {
@@ -195,8 +235,12 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 			case "start":
 				startGame();
 				break;
-			case "boardSize":
+			case "boardsize":
+			    getBoardSize();
+			    break;
 			case "leaderboard":
+				getLeaderboard();
+				break;
 			case "up":
 				updateScore();
 			case "left":
@@ -213,11 +257,6 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 				break;
 			}
 		}
-	}
-	
-	private void getBoardSize() {
-		layout.removeLayoutComponent(introPanel);
-		
 	}
 
 	public void updateObserver(int row, int col, int value) {
