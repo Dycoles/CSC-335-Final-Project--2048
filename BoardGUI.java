@@ -10,6 +10,7 @@ import javax.swing.border.Border;
 import javax.swing.*;
 
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class BoardGUI extends JFrame implements Composite2048Observer {
 
@@ -17,6 +18,7 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 	private JPanel introPanel, gamePanel, boardPanel, leaderboardPanel, boardSizePanel, gameOverPanel;
 	private JPanel[][] itemPanels;
 	private JLabel titleLabel, gameLabel, scoreLabel, sizeLabel, leaderboardLabel, gameOverLabel;
+	private JLabel nameLabel;
 	private JButton startButton, exitButton, submitButton, mainMenuButton;
 	private JButton upButton, leftButton, rightButton, downButton;
 	private JButton leaderboardButton, boardSizeButton;
@@ -217,7 +219,8 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 				itemPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 				itemPanel.setLayout(new GridBagLayout());
 				JLabel itemLabel = new JLabel();
-				itemLabel.setFont(new Font("Item", Font.PLAIN, 30));
+				itemLabel.setFont(new Font("Verdana", Font.BOLD, 20));
+				itemLabel.setForeground(Color.decode("#9F6B53"));
 				itemPanel.add(itemLabel);
 				boardPanel.add(itemPanel);
 				itemPanels[i][j] = itemPanel;
@@ -228,45 +231,65 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 
 		// set up the title label
 		titleLabel = new JLabel("2048", JLabel.CENTER);
-		titleLabel.setFont(new Font("Title", Font.PLAIN, 25));
+		titleLabel.setFont(new Font("Verdana", Font.BOLD, 45));
+		titleLabel.setForeground(Color.decode("#9F6B53"));
 		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		titleLabel.setBounds(300, 0, 400, 100);
+		titleLabel.setBounds(300, -10, 400, 100);
 		gamePanel.add(titleLabel);
 
 		gameLabel = new JLabel("Move the tiles with the buttons below\nor the arrows on your keyboard!");
-		gameLabel.setBounds(50, -25, 600, 200);
+		gameLabel.setFont(new Font("Verdana", Font.BOLD, 15));
+		gameLabel.setForeground(Color.decode("#9F6B53"));
+		gameLabel.setBounds(25, -15, 600, 200);
 		gamePanel.add(gameLabel);
 
 		// Display player's current score
 		scoreLabel = new JLabel("Score: 0");
-		scoreLabel.setFont(new Font("score", Font.PLAIN, 20));
-		scoreLabel.setBounds(10, 10, 400, 400);
+		scoreLabel.setFont(new Font("Verdana", Font.BOLD, 20));
+		scoreLabel.setForeground(Color.decode("#9F6B53"));
+		scoreLabel.setBounds(720, -115, 300, 400);
 		gamePanel.add(scoreLabel);
 
 		// Create the directional buttons:
 		upButton = new JButton('\u2191' + "");
-		upButton.setFont(new Font("Button", Font.PLAIN, 21));
+		upButton.setBackground(new Color(204, 192, 179));
+		upButton.setOpaque(true);
+		upButton.setBorderPainted(false);
+		upButton.setFont(new Font("Verdana", Font.BOLD, 21));
+		upButton.setForeground(Color.decode("#9F6B53"));
 		upButton.setBounds(85, 287, 75, 75);
 		upButton.setActionCommand("up");
 		upButton.addActionListener(new ButtonListener());
 		gamePanel.add(upButton);
 
 		leftButton = new JButton('\u2190' + "");
-		leftButton.setFont(new Font("Button", Font.PLAIN, 21));
+		leftButton.setBackground(new Color(204, 192, 179));
+		leftButton.setOpaque(true);
+		leftButton.setBorderPainted(false);
+		leftButton.setFont(new Font("Verdana", Font.BOLD, 21));
+		leftButton.setForeground(Color.decode("#9F6B53"));
 		leftButton.setBounds(10, 362, 75, 75);
 		leftButton.setActionCommand("left");
 		leftButton.addActionListener(new ButtonListener());
 		gamePanel.add(leftButton);
 
 		rightButton = new JButton('\u2192' + "");
-		rightButton.setFont(new Font("Button", Font.PLAIN, 21));
+		rightButton.setBackground(new Color(204, 192, 179));
+		rightButton.setOpaque(true);
+		rightButton.setBorderPainted(false);
+		rightButton.setFont(new Font("Verdana", Font.BOLD, 21));
+		rightButton.setForeground(Color.decode("#9F6B53"));
 		rightButton.setBounds(160, 362, 75, 75);
 		rightButton.setActionCommand("right");
 		rightButton.addActionListener(new ButtonListener());
 		gamePanel.add(rightButton);
 
 		downButton = new JButton('\u2193' + "");
-		downButton.setFont(new Font("Button", Font.PLAIN, 21));
+		downButton.setBackground(new Color(204, 192, 179));
+		downButton.setOpaque(true);
+		downButton.setBorderPainted(false);
+		downButton.setFont(new Font("Verdana", Font.BOLD, 21));
+		downButton.setForeground(Color.decode("#9F6B53"));
 		downButton.setBounds(85, 437, 75, 75);
 		downButton.setActionCommand("down");
 		downButton.addActionListener(new ButtonListener());
@@ -275,6 +298,11 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		// Set up the exit button for gamePanel:
 		exitButton = new JButton("Exit");
 		exitButton.setBounds(875, 700, 100, 40);
+		exitButton.setBackground(Color.decode("#F5DEB3"));
+		exitButton.setOpaque(true);
+		exitButton.setBorderPainted(false);
+		exitButton.setFont(new Font("Verdana", Font.BOLD, 20));
+		exitButton.setForeground(Color.decode("#9F6B53"));
 		exitButton.setActionCommand("exit");
 		exitButton.addActionListener(new ButtonListener());
 		gamePanel.add(exitButton);
@@ -291,45 +319,60 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 
 		// set up the title label
 		titleLabel = new JLabel("2048", JLabel.CENTER);
-		titleLabel.setFont(new Font("Title", Font.PLAIN, 25));
-		titleLabel.setBounds(450, 0, 100, 100);
+		titleLabel.setFont(new Font("Verdana", Font.BOLD, 45));
+		titleLabel.setForeground(Color.decode("#9F6B53"));
+		titleLabel.setBounds(395, 0, 200, 100);
 		boardSizePanel.add(titleLabel);
 
 		// set up the size label
 		sizeLabel = new JLabel("Please Enter Custom Size From 4 To 10, Then Press 'Start'.", JLabel.CENTER);
-		sizeLabel.setFont(new Font("Arial", Font.PLAIN, 15));
-		sizeLabel.setBounds(200, -50, 600, 500);
+		sizeLabel.setFont(new Font("Verdana", Font.BOLD, 17));
+		sizeLabel.setForeground(Color.decode("#9F6B53"));
+		sizeLabel.setBounds(200, -30, 600, 500);
 		boardSizePanel.add(sizeLabel);
 
 		// Set up the input text field:
 		inputTextField.setBounds(450, 300, 100, 30);
-		inputTextField.setFont(new Font("Arial", Font.PLAIN, 16));
+		inputTextField.setFont(new Font("Verdana", Font.BOLD, 20));
+		inputTextField.setForeground(Color.decode("#9F6B53"));
 		boardSizePanel.add(inputTextField);
 
 		// Set up the go button (for command execution):
 		startButton = new JButton("Start Game");
 		startButton.setActionCommand("start");
+		startButton.setBackground(Color.decode("#F5DEB3"));
+		startButton.setOpaque(true);
+		startButton.setBorderPainted(false);
+		startButton.setFont(new Font("Verdana", Font.BOLD, 20));
+		startButton.setForeground(Color.decode("#9F6B53"));
 		startButton.addActionListener(new ButtonListener());
-		startButton.setBounds(450, 600, 100, 40);
+		startButton.setBounds(350, 600, 300, 75);
 		boardSizePanel.add(startButton);
 	}
 
 	private void getLeaderboard() {
 		layout.show(getContentPane(), "Leaderboard");
-		// remove all previous instances of leaderboardpanel
 		leaderboardPanel.removeAll();
 
 		// set up the title label
 		titleLabel = new JLabel("2048", JLabel.CENTER);
-		titleLabel.setFont(new Font("Title", Font.PLAIN, 40));
-		titleLabel.setBounds(450, 0, 100, 100);
+		titleLabel.setFont(new Font("Verdana", Font.BOLD, 45));
+		titleLabel.setForeground(Color.decode("#9F6B53"));
+		titleLabel.setBounds(395, 0, 200, 100);
 		leaderboardPanel.add(titleLabel);
 
 		// set up the title label
 		leaderboardLabel = new JLabel("Leaderboard", JLabel.CENTER);
-		leaderboardLabel.setFont(new Font("Arial", Font.PLAIN, 30));
-		leaderboardLabel.setBounds(200, -50, 600, 500);
+		leaderboardLabel.setFont(new Font("Verdana", Font.BOLD, 30));
+		leaderboardLabel.setForeground(Color.decode("#9F6B53"));
+		leaderboardLabel.setBounds(200, -100, 600, 500);
 		leaderboardPanel.add(leaderboardLabel);
+
+		nameLabel = new JLabel("Top 10", JLabel.CENTER);
+		nameLabel.setBounds(350, 160, 300, 75);
+		nameLabel.setFont(new Font("Verdana", Font.BOLD, 20));
+		nameLabel.setForeground(Color.decode("#9F6B53"));
+		leaderboardPanel.add(nameLabel);
 
 		// load the leaderboard file
 		manager.loadLeaderboard();
@@ -339,15 +382,26 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 			if (scores.size() <= i) {
 				break;
 			}
-			JLabel scoreLabel = new JLabel(scores.get(i).getName() + ": " + scores.get(i).getScore());
-			scoreLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-			scoreLabel.setBounds(425, 125 + i * 25, 300, 250);
-			leaderboardPanel.add(scoreLabel);
+			JLabel playerNameLabel = new JLabel(scores.get(i).getName());
+			JLabel playerScoreLabel = new JLabel("" + scores.get(i).getScore());
+			playerNameLabel.setFont(new Font("Verdana", Font.BOLD, 20));
+			playerNameLabel.setForeground(Color.decode("#9F6B53"));
+			playerScoreLabel.setFont(new Font("Verdana", Font.BOLD, 20));
+			playerScoreLabel.setForeground(Color.decode("#9F6B53"));
+			playerNameLabel.setBounds(300, 125 + i * 25, 300, 250);
+			playerScoreLabel.setBounds(625, 125 + i * 25, 300, 250);
+			leaderboardPanel.add(playerScoreLabel);
+			leaderboardPanel.add(playerNameLabel);
 		}
 
 		// create main menu button
 		mainMenuButton = new JButton("Back to Main Menu");
-		mainMenuButton.setBounds(400, 550, 200, 75);
+		mainMenuButton.setBounds(375, 650, 250, 60);
+		mainMenuButton.setBackground(Color.decode("#F5DEB3"));
+		mainMenuButton.setOpaque(true);
+		mainMenuButton.setBorderPainted(false);
+		mainMenuButton.setFont(new Font("Verdana", Font.BOLD, 15));
+		mainMenuButton.setForeground(Color.decode("#9F6B53"));
 		mainMenuButton.setActionCommand("mainMenu");
 		mainMenuButton.addActionListener(new ButtonListener());
 		leaderboardPanel.add(mainMenuButton);
