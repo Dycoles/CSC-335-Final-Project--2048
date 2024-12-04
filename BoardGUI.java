@@ -406,17 +406,40 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 			if (scores.size() <= i) {
 				break;
 			}
-			JLabel playerNameLabel = new JLabel(scores.get(i).getName());
-			JLabel playerScoreLabel = new JLabel("" + scores.get(i).getScore());
+			// limit name length to 6 chars
+			String nameString = scores.get(i).getName();
+			if (nameString.length() > 6) {
+				nameString = nameString.substring(0, 6);
+			}
+			JLabel playerNameLabel = new JLabel("Name: " + nameString);
+			JLabel playerScoreLabel = new JLabel("Score: " + scores.get(i).getScore());
+			JLabel playerSizeLabel = new JLabel("Board Size: " + scores.get(i).getSize());
 			playerNameLabel.setFont(new Font("Verdana", Font.BOLD, 20));
 			playerNameLabel.setForeground(Color.decode("#9F6B53"));
 			playerScoreLabel.setFont(new Font("Verdana", Font.BOLD, 20));
 			playerScoreLabel.setForeground(Color.decode("#9F6B53"));
-			playerNameLabel.setBounds(300, 125 + i * 25, 300, 250);
-			playerScoreLabel.setBounds(625, 125 + i * 25, 300, 250);
+			playerSizeLabel.setFont(new Font("Verdana", Font.BOLD, 20));
+			playerSizeLabel.setForeground(Color.decode("#9F6B53"));
+			playerNameLabel.setBounds(275, 125 + i * 25, 300, 250);
+			playerScoreLabel.setBounds(450, 125 + i * 25, 300, 250);
+			playerSizeLabel.setBounds(625, 125 + i * 25, 300, 250);
 			leaderboardPanel.add(playerScoreLabel);
 			leaderboardPanel.add(playerNameLabel);
+			leaderboardPanel.add(playerSizeLabel);
 		}
+
+		// create main menu button
+		mainMenuButton = new JButton("Back to Main Menu");
+		mainMenuButton.setBounds(375, 650, 250, 60);
+		mainMenuButton.setBackground(Color.decode("#F5DEB3"));
+		mainMenuButton.setOpaque(true);
+		mainMenuButton.setBorderPainted(false);
+		mainMenuButton.setFont(new Font("Verdana", Font.BOLD, 15));
+		mainMenuButton.setForeground(Color.decode("#9F6B53"));
+		mainMenuButton.setActionCommand("mainMenu");
+		mainMenuButton.addActionListener(new ButtonListener());
+		leaderboardPanel.add(mainMenuButton);
+	}
 
 		// create main menu button
 		mainMenuButton = new JButton("Back to Main Menu");
