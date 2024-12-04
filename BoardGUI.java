@@ -310,6 +310,8 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		// Set up the name field and submit buttons for the leaderboard:
 		nameTextField = new JTextField("Name");
 		nameTextField.setBounds(375, 390, 250, 75);
+		nameTextField.setFont(new Font("Verdana", Font.BOLD, 21));
+		nameTextField.setForeground(Color.decode("#9F6B53"));
 		nameTextField.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.decode("#9F6B53")));
 		nameTextField.setVisible(false);
 		nameTextField.setOpaque(true);
