@@ -316,27 +316,41 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 
 	private void getLeaderboard() {
 		layout.show(getContentPane(), "Leaderboard");
+		// remove all previous instances of leaderboardpanel
+		leaderboardPanel.removeAll();
 
 		// set up the title label
 		titleLabel = new JLabel("2048", JLabel.CENTER);
-		titleLabel.setFont(new Font("Title", Font.PLAIN, 25));
+		titleLabel.setFont(new Font("Title", Font.PLAIN, 40));
 		titleLabel.setBounds(450, 0, 100, 100);
 		leaderboardPanel.add(titleLabel);
 
 		// set up the title label
 		leaderboardLabel = new JLabel("Leaderboard", JLabel.CENTER);
-		leaderboardLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+		leaderboardLabel.setFont(new Font("Arial", Font.PLAIN, 30));
 		leaderboardLabel.setBounds(200, -50, 600, 500);
 		leaderboardPanel.add(leaderboardLabel);
 
+		// load the leaderboard file
+		manager.loadLeaderboard();
+		// get the top 10 scores from the leaderboard
+		ArrayList<ScoreEntry> scores = manager.getLeaderboard();
+		for (int i = 0; i < 10; i++) {
+			if (scores.size() <= i) {
+				break;
+			}
+			JLabel scoreLabel = new JLabel(scores.get(i).getName() + ": " + scores.get(i).getScore());
+			scoreLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+			scoreLabel.setBounds(425, 125 + i * 25, 300, 250);
+			leaderboardPanel.add(scoreLabel);
+		}
+
 		// create main menu button
 		mainMenuButton = new JButton("Back to Main Menu");
-		mainMenuButton.setBounds(400, 450, 200, 75);
+		mainMenuButton.setBounds(400, 550, 200, 75);
 		mainMenuButton.setActionCommand("mainMenu");
 		mainMenuButton.addActionListener(new ButtonListener());
 		leaderboardPanel.add(mainMenuButton);
-
-		// TODO: display leaderboard
 	}
 
 	private void displayGameOver() {
@@ -399,7 +413,7 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 				layout.show(getContentPane(), "Intro");
 				break;
 			case "submit":
-				writeToLeaderboard(nameTextField.getText(), manager.getCurScore());
+				writeToLeaderboard(nameTextField.getText());
 				gameOverLabel.setText("Score Saved!");
 				try {
 					Thread.sleep(2000);
@@ -437,8 +451,9 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		}
 	}
 
-	private void writeToLeaderboard(String name, int score) {
-
+	private void writeToLeaderboard(String name) {
+		manager.loadLeaderboard();
+		manager.addScoreToLeaderboard(name);
 	}
 
 	public void updateObserver(int row, int col, int value) {
