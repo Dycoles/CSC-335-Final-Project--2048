@@ -1,8 +1,13 @@
 
 package mvc;
 
+import java.util.ArrayList;
+
 import Components.Board;
+import Components.Composite2048Observer;
 import Components.Direction;
+import Components.Leaderboard;
+import Components.ScoreEntry;
 
 public class GameManager {
 	
@@ -65,5 +70,17 @@ public class GameManager {
 	// Add a composite observer to the model:
 	public void addCompositeObserver(Composite2048Observer o) {
 		board.addCompositeObserver(o);
+	}
+	
+	public void loadLeaderboard() {
+		leaderboard.loadScores();
+	}
+	
+	public ArrayList<ScoreEntry> getLeaderboard() {
+		return leaderboard.getScoreList();
+	}
+	
+	public void addScoreToLeaderboard(String name) {
+		leaderboard.addScore(name, getCurScore());
 	}
 }
