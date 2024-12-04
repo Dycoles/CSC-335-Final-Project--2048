@@ -306,7 +306,22 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		exitButton.setActionCommand("exit");
 		exitButton.addActionListener(new ButtonListener());
 		gamePanel.add(exitButton);
+		
+		// set up game over panel
+		nameTextField = new JTextField("Name");
+		nameTextField.setBounds(375, 390, 250, 75);
+		nameTextField.setVisible(false);
+		nameTextField.setOpaque(true);
+		gameOverPanel.add(nameTextField);
 
+		// submit button
+		submitButton = new JButton("Submit");
+		submitButton.setActionCommand("submit");
+		submitButton.addActionListener(new ButtonListener());
+		submitButton.setBounds(400, 475, 200, 60);
+		submitButton.setVisible(false);
+		submitButton.setOpaque(true);
+		gameOverPanel.add(submitButton);
 	}
 
 	private void updateScore() {
@@ -407,26 +422,6 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		leaderboardPanel.add(mainMenuButton);
 	}
 
-	private void displayGameOver() {
-		// Set up the name field and submit buttons for the leaderboard:
-		nameTextField = new JTextField("Name");
-		nameTextField.setBounds(375, 390, 250, 75);
-		nameTextField.setVisible(false);
-		nameTextField.setOpaque(true);
-		gameOverPanel.add(nameTextField);
-
-		// submit button
-		submitButton = new JButton("Submit");
-		submitButton.setActionCommand("submit");
-		submitButton.addActionListener(new ButtonListener());
-		submitButton.setBounds(400, 475, 200, 60);
-		submitButton.setVisible(false);
-		submitButton.setOpaque(true);
-		gameOverPanel.add(submitButton);
-
-		gameOverPanel.setVisible(true);
-	}
-
 	// Listener class to respond to button presses:
 	private class ButtonListener implements ActionListener {
 
@@ -476,10 +471,10 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 				if (manager.isGameWon() || manager.isGameLost()) {
 					if (manager.isGameWon()) {
 						gameOverLabel.setText("You won! Please enter your name.");
-						displayGameOver();
+						gameOverPanel.setVisible(true);
 					} else {
 						gameOverLabel.setText("You lost! Please enter your name.");
-						displayGameOver();
+						gameOverPanel.setVisible(true);
 					}
 
 					nameTextField.setVisible(true);
