@@ -54,6 +54,9 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		// create start button
 		startButton = new JButton("Start Game");
 		startButton.setBounds(400, 150, 200, 75);
+		startButton.setBackground(Color.decode("#F5DEB3"));
+		startButton.setOpaque(true);
+		startButton.setBorderPainted(false);
 		startButton.setActionCommand("start");
 		startButton.addActionListener(new ButtonListener());
 		introPanel.add(startButton);
@@ -61,6 +64,9 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		// create board size button
 		boardSizeButton = new JButton("Change Board Size");
 		boardSizeButton.setBounds(400, 300, 200, 75);
+		boardSizeButton.setBackground(Color.decode("#F5DEB3"));
+		boardSizeButton.setOpaque(true);
+		boardSizeButton.setBorderPainted(false);
 		boardSizeButton.setActionCommand("boardSize");
 		boardSizeButton.addActionListener(new ButtonListener());
 		introPanel.add(boardSizeButton);
@@ -68,12 +74,18 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		// create LeaderBoard button
 		leaderboardButton = new JButton("Leaderboard");
 		leaderboardButton.setBounds(400, 450, 200, 75);
+		leaderboardButton.setBackground(Color.decode("#F5DEB3"));
+		leaderboardButton.setOpaque(true);
+		leaderboardButton.setBorderPainted(false);
 		leaderboardButton.setActionCommand("leaderboard");
 		leaderboardButton.addActionListener(new ButtonListener());
 		introPanel.add(leaderboardButton);
 
 		exitButton = new JButton("Exit");
 		exitButton.setBounds(400, 600, 200, 75);
+		exitButton.setBackground(Color.decode("#F5DEB3"));
+		exitButton.setOpaque(true);
+		exitButton.setBorderPainted(false);
 		exitButton.setActionCommand("exit");
 		exitButton.addActionListener(new ButtonListener());
 		introPanel.add(exitButton);
