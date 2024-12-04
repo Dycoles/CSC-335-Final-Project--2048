@@ -424,22 +424,6 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		submitButton.setOpaque(true);
 		gameOverPanel.add(submitButton);
 
-		// create main menu button
-		mainMenuButton = new JButton("Back to Main Menu");
-		mainMenuButton.setBounds(200, 550, 200, 75);
-		mainMenuButton.setActionCommand("mainMenu");
-		mainMenuButton.addActionListener(new ButtonListener());
-		mainMenuButton.setOpaque(true);
-		gameOverPanel.add(mainMenuButton);
-
-		// Set up the exit button for gamePanel:
-		exitButton = new JButton("Exit");
-		exitButton.setBounds(600, 550, 200, 75);
-		exitButton.setActionCommand("exit");
-		exitButton.addActionListener(new ButtonListener());
-		exitButton.setOpaque(true);
-		gameOverPanel.add(exitButton);
-
 		gameOverPanel.setVisible(true);
 	}
 
@@ -474,6 +458,11 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
+				gameOverPanel.setVisible(false);
+				gameOverPanel.removeAll();
+				getContentPane().removeAll();
+				setUp();
+				layout.show(getContentPane(), "Intro");
 				break;
 			case "up":
 			case "left":
