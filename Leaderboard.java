@@ -16,8 +16,8 @@ public class Leaderboard {
 		scoreList = new ArrayList<ScoreEntry>();
 	}
 	
-	public void addScore(String name, int score) {
-		ScoreEntry entry = new ScoreEntry(name, score);
+	public void addScore(String name, int score, int size) {
+		ScoreEntry entry = new ScoreEntry(name, score, size);
 		scoreList.add(entry);
 		// lambda expression sorts scores in descending order
 		scoreList.sort((score1, score2) -> score2.getScore() - score1.getScore());
@@ -43,7 +43,7 @@ public class Leaderboard {
 		// TODO
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter("Leaderboard.txt"))) {
             for (ScoreEntry entry : scoreList) {
-                writer.write(entry.getName() + "," + entry.getScore());
+                writer.write(entry.getName() + "," + entry.getScore() + "," + entry.getSize());
                 writer.newLine();
             }
         } catch (IOException e) {
@@ -63,10 +63,11 @@ public class Leaderboard {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length == 2) {
+                if (parts.length == 3) {
                     String name = parts[0];
                     int score = Integer.parseInt(parts[1]);
-                    scoreList.add(new ScoreEntry(name, score));
+                    int size = Integer.parseInt(parts[2]);
+                    scoreList.add(new ScoreEntry(name, score, size));
                 }
             }
             // ensure scores are sorted
