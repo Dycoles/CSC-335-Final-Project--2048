@@ -1,30 +1,78 @@
+package Components;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Leaderboard {
 	
-	private String name;
-	private ArrayList<Integer> highScores;
+	private ArrayList<ScoreEntry> scoreList;
 	
 	public Leaderboard() {
-		name = "";
-		highScores = new ArrayList<Integer>();
+		scoreList = new ArrayList<ScoreEntry>();
 	}
 	
-	public String getName() {
-		return name;
+	public void addScore(String name, int score) {
+		ScoreEntry entry = new ScoreEntry(name, score);
+		scoreList.add(entry);
+		// lambda expression sorts scores in descending order
+		scoreList.sort((score1, score2) -> score2.getScore() - score1.getScore());
+		// call add function
+		addToFile();
+	}
+	
+	public ArrayList<ScoreEntry> getScoreList() {
+		// return a new Arraylist to avoid making a copy
+		ArrayList<ScoreEntry> copyScores = new ArrayList<ScoreEntry>();
+		for (int i = 0; i < scoreList.size(); i++) {
+			copyScores.add(scoreList.get(i));
+		}
+		return copyScores;
+	}
+	
+	public void loadScores() {
+		// call load function
+		loadFromFile();
 	}
 	
 	private void addToFile() {
 		// TODO
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter("Leaderboard.txt"))) {
+            for (ScoreEntry entry : scoreList) {
+                writer.write(entry.getName() + "," + entry.getScore());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("Could not save leaderboard " + e.getMessage());
+        }
 	}
 	
 	private void loadFromFile() {
-		// TODO
-	}
-	
-	public ArrayList<Integer> getScores() {
-		ArrayList<Integer> scores = new ArrayList<Integer>();
-		scores = highScores;
-		return scores;
+		scoreList.clear();
+        File file = new File("Leaderboard.txt");
+        if (!file.exists()) {
+        	System.out.println("File does not exist");
+        	return;
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 2) {
+                    String name = parts[0];
+                    int score = Integer.parseInt(parts[1]);
+                    scoreList.add(new ScoreEntry(name, score));
+                }
+            }
+            // ensure scores are sorted
+    		scoreList.sort((score1, score2) -> score2.getScore() - score1.getScore());
+        } catch (IOException | NumberFormatException e) {
+            System.err.println("Could not load leaderboard " + e.getMessage());
+        }
 	}
 }
