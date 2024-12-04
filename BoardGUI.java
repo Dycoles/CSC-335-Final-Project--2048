@@ -3,6 +3,7 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import javax.swing.border.Border;
@@ -88,21 +89,29 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		leaderboardPanel.setLayout(gameLayout);
 		leaderboardPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 	    
-		gameOverPanel = new JPanel();
-		gameOverPanel.setLayout(gameOverLayout);
-		gameOverPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		gameOverPanel.setBackground(new Color(0, 0, 15, 20));
+		gameOverPanel = new JPanel() {
+		    @Override
+		    protected void paintComponent(Graphics g) {
+		        super.paintComponent(g);
+		        g.setColor(new Color(135, 206, 235, 180));
+		        g.fillRect(0, 0, getWidth(), getHeight());
+		    }
+		};
+		
+		gameOverPanel.setLayout(null);
+		gameOverPanel.setOpaque(false);
 		
 		gameOverLabel = new JLabel("Game Over", JLabel.CENTER);
 		gameOverLabel.setFont(new Font("Title", Font.PLAIN, 30));
 		gameOverLabel.setBounds(175, 270, 650, 75);
 		gameOverPanel.add(gameOverLabel);
+		
+		setGlassPane(gameOverPanel);
 	    
 		this.add(introPanel, "Intro");
 		this.add(gamePanel, "Game");
 		this.add(boardSizePanel, "Size");
 		this.add(leaderboardPanel, "Leaderboard");
-		this.add(gameOverPanel, "GameOver");
 	}
 
 	private void keyBindings() {
@@ -306,12 +315,11 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 	}
 	
 	private void displayGameOver() {
-		layout.show(getContentPane(), "GameOver");
-		
 		// Set up the name field and submit buttons for the leaderboard:
 		nameTextField = new JTextField("Name");
 		nameTextField.setBounds(375, 390, 250, 75);
 		nameTextField.setVisible(false);
+		nameTextField.setOpaque(true);
 		gameOverPanel.add(nameTextField);
 		
 		// submit button
@@ -320,6 +328,7 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		submitButton.addActionListener(new ButtonListener());
 		submitButton.setBounds(400, 475, 200, 60);
 		submitButton.setVisible(false);
+		submitButton.setOpaque(true);
 		gameOverPanel.add(submitButton);
 		
 		// create main menu button
@@ -327,6 +336,7 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		mainMenuButton.setBounds(200, 550, 200, 75);
 		mainMenuButton.setActionCommand("mainMenu");
 		mainMenuButton.addActionListener(new ButtonListener());
+		mainMenuButton.setOpaque(true);
 		gameOverPanel.add(mainMenuButton);
 		
 		// Set up the exit button for gamePanel:
@@ -334,7 +344,10 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		exitButton.setBounds(600, 550, 200, 75);
 		exitButton.setActionCommand("exit");
 		exitButton.addActionListener(new ButtonListener());
+		exitButton.setOpaque(true);
 		gameOverPanel.add(exitButton);
+		
+		gameOverPanel.setVisible(true);
 	}
 
 	// Listener class to respond to button presses:
@@ -354,6 +367,8 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 				getLeaderboard();
 				break;
 			case "mainmenu":
+				gameOverPanel.setVisible(false);
+				gameOverPanel.removeAll();
 				getContentPane().removeAll();
 				setUp();
 				layout.show(getContentPane(), "Intro");
