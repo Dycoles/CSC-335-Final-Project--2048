@@ -40,6 +40,7 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		// create new title panel
 		introPanel = new JPanel();
 		introPanel.setLayout(null);
+		introPanel.setBackground(Color.decode("#FFFAF0"));
 
 		// set up the title label
 		titleLabel = new JLabel("2048", JLabel.CENTER);
@@ -79,14 +80,17 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 
 		gamePanel = new JPanel();
 		gamePanel.setLayout(gameLayout);
+		gamePanel.setBackground(Color.decode("#FFFAF0"));
 		gamePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		
 		boardSizePanel = new JPanel();
 		boardSizePanel.setLayout(boardSizeLayout);
+		boardSizePanel.setBackground(Color.decode("#FFFAF0"));
 		boardSizePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		
 		leaderboardPanel = new JPanel();
 		leaderboardPanel.setLayout(gameLayout);
+		leaderboardPanel.setBackground(Color.decode("#FFFAF0"));
 		leaderboardPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 	    
 		gameOverPanel = new JPanel() {
