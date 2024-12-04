@@ -120,7 +120,7 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 			@Override
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				g.setColor(new Color(135, 206, 235, 180));
+				g.setColor(new Color(255, 255, 255, 180));
 				g.fillRect(0, 0, getWidth(), getHeight());
 			}
 		};
@@ -306,10 +306,11 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		exitButton.setActionCommand("exit");
 		exitButton.addActionListener(new ButtonListener());
 		gamePanel.add(exitButton);
-		
-		// set up game over panel
+
+		// Set up the name field and submit buttons for the leaderboard:
 		nameTextField = new JTextField("Name");
 		nameTextField.setBounds(375, 390, 250, 75);
+		nameTextField.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.decode("#9F6B53")));
 		nameTextField.setVisible(false);
 		nameTextField.setOpaque(true);
 		gameOverPanel.add(nameTextField);
@@ -319,9 +320,15 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		submitButton.setActionCommand("submit");
 		submitButton.addActionListener(new ButtonListener());
 		submitButton.setBounds(400, 475, 200, 60);
+		submitButton.setBackground(Color.decode("#9F6B53"));
+		submitButton.setOpaque(true);
+		submitButton.setBorderPainted(false);
+		submitButton.setFont(new Font("Verdana", Font.BOLD, 15));
+		submitButton.setForeground(Color.decode("#F5DEB3"));
 		submitButton.setVisible(false);
 		submitButton.setOpaque(true);
 		gameOverPanel.add(submitButton);
+
 	}
 
 	private void updateScore() {
