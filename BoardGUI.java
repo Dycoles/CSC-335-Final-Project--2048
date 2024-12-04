@@ -13,15 +13,14 @@ import java.awt.event.*;
 public class BoardGUI extends JFrame implements Composite2048Observer {
 
 	private GameManager manager;
-	private JPanel introPanel, gamePanel, boardPanel, leaderboardPanel, boardSizePanel;
+	private JPanel introPanel, gamePanel, boardPanel, leaderboardPanel, boardSizePanel, gameOverPanel;
 	private JPanel[][] itemPanels;
-	private JLabel titleLabel, gameLabel, scoreLabel, sizeLabel, leaderboardLabel;
+	private JLabel titleLabel, gameLabel, scoreLabel, sizeLabel, leaderboardLabel, gameOverLabel;
 	private JButton startButton, exitButton, submitButton, mainMenuButton;
 	private JButton upButton, leftButton, rightButton, downButton;
 	private JButton leaderboardButton, boardSizeButton;
 	private CardLayout layout;
-	private BoxLayout gameLayout, boardSizeLayout;
-	private JRadioButton radioButton1, radioButton2;
+	private BoxLayout gameLayout, boardSizeLayout, gameOverLayout;
 	private JTextField inputTextField, nameTextField;
 	private static final int DEFAULT_BOARD_SIZE = 4;
 
@@ -89,10 +88,21 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		leaderboardPanel.setLayout(gameLayout);
 		leaderboardPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 	    
+		gameOverPanel = new JPanel();
+		gameOverPanel.setLayout(gameOverLayout);
+		gameOverPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		gameOverPanel.setBackground(new Color(0, 0, 15, 20));
+		
+		gameOverLabel = new JLabel("Game Over", JLabel.CENTER);
+		gameOverLabel.setFont(new Font("Title", Font.PLAIN, 30));
+		gameOverLabel.setBounds(175, 270, 650, 75);
+		gameOverPanel.add(gameOverLabel);
+	    
 		this.add(introPanel, "Intro");
 		this.add(gamePanel, "Game");
 		this.add(boardSizePanel, "Size");
 		this.add(leaderboardPanel, "Leaderboard");
+		this.add(gameOverPanel, "GameOver");
 	}
 
 	private void keyBindings() {
@@ -189,7 +199,6 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		titleLabel.setBounds(300, 0, 400, 100);
 		gamePanel.add(titleLabel);
 
-		// TODO: add key listener
 		gameLabel = new JLabel("Move the tiles with the buttons below\nor the arrows on your keyboard!");
 		gameLabel.setBounds(50, -25, 600, 200);
 		gamePanel.add(gameLabel);
@@ -228,19 +237,6 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		downButton.setActionCommand("down");
 		downButton.addActionListener(new ButtonListener());
 		gamePanel.add(downButton);
-		
-		// Set up the name field and submit buttons for the leaderboard:
-		nameTextField = new JTextField("Name");
-		nameTextField.setBounds(50, 550, 100, 30);
-		nameTextField.setVisible(false);
-		gamePanel.add(nameTextField);
-		
-		submitButton = new JButton("Submit");
-		submitButton.setActionCommand("submit");
-		submitButton.addActionListener(new ButtonListener());
-		submitButton.setBounds(50, 600, 100, 60);
-		submitButton.setVisible(false);
-		gamePanel.add(submitButton);
 
 		// Set up the exit button for gamePanel:
 		exitButton = new JButton("Exit");
@@ -248,8 +244,6 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		exitButton.setActionCommand("exit");
 		exitButton.addActionListener(new ButtonListener());
 		gamePanel.add(exitButton);
-
-		// Create the leaderboard (maybe) (TODO):
 
 	}
 	
@@ -310,6 +304,38 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		
 		// TODO: display leaderboard
 	}
+	
+	private void displayGameOver() {
+		layout.show(getContentPane(), "GameOver");
+		
+		// Set up the name field and submit buttons for the leaderboard:
+		nameTextField = new JTextField("Name");
+		nameTextField.setBounds(375, 390, 250, 75);
+		nameTextField.setVisible(false);
+		gameOverPanel.add(nameTextField);
+		
+		// submit button
+		submitButton = new JButton("Submit");
+		submitButton.setActionCommand("submit");
+		submitButton.addActionListener(new ButtonListener());
+		submitButton.setBounds(400, 475, 200, 60);
+		submitButton.setVisible(false);
+		gameOverPanel.add(submitButton);
+		
+		// create main menu button
+		mainMenuButton = new JButton("Back to Main Menu");
+		mainMenuButton.setBounds(200, 550, 200, 75);
+		mainMenuButton.setActionCommand("mainMenu");
+		mainMenuButton.addActionListener(new ButtonListener());
+		gameOverPanel.add(mainMenuButton);
+		
+		// Set up the exit button for gamePanel:
+		exitButton = new JButton("Exit");
+		exitButton.setBounds(600, 550, 200, 75);
+		exitButton.setActionCommand("exit");
+		exitButton.addActionListener(new ButtonListener());
+		gameOverPanel.add(exitButton);
+	}
 
 	// Listener class to respond to button presses:
 	private class ButtonListener implements ActionListener {
@@ -334,12 +360,12 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 				break;
 			case "submit":
 				writeToLeaderboard(nameTextField.getText(), manager.getCurScore());
+				gameOverLabel.setText("Score Saved!");
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
-				System.exit(0);
 				break;
 			case "up":
 			case "left":
@@ -352,11 +378,13 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 				// Check to see if the game is over:
 				if (manager.isGameWon() || manager.isGameLost()) {
 					if (manager.isGameWon()) {
-						titleLabel.setText("You won! Please enter your name.");
+						gameOverLabel.setText("You won! Please enter your name.");
+						displayGameOver();
 					} else {
-						titleLabel.setText("You lost! Please enter your name.");
+						gameOverLabel.setText("You lost! Please enter your name.");
+						displayGameOver();
 					}
-					
+		
 					nameTextField.setVisible(true);
 					submitButton.setVisible(true);
 				}
