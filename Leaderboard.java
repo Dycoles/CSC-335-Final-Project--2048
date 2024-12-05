@@ -83,4 +83,17 @@ public class Leaderboard {
             System.err.println("Could not load leaderboard " + e.getMessage());
         }
 	}
+
+	// for testing
+	public String stringLeaderboard() {
+		String answer = "";
+		for (int i=0; i < scoreList.size(); i++) {
+			ScoreEntry curScore = scoreList.get(i);
+			answer += curScore.getName() + " ";
+			answer += curScore.getScore() + " "; 
+			answer += curScore.getSize();
+		}
+		return answer;
+	}
+	
 }
