@@ -46,8 +46,25 @@ public class Leaderboard {
 		loadFromFile();
 	}
 	
+	// for testing
+	public String[] arrayLeaderboard() {
+		String[] answer = new String[scoreList.size()];
+		for (int i=0; i < scoreList.size(); i++) {
+			answer[i] = stringLeaderboard(scoreList.get(i));
+		}
+		return answer;
+	}
+	
+	// for testing
+	private String stringLeaderboard(ScoreEntry score) {
+		String answer = "";
+		answer += score.getName() + " ";
+		answer += score.getScore() + " "; 
+		answer += score.getSize();
+		return answer;
+	}
+	
 	private void addToFile() {
-		// TODO
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter("Leaderboard.txt"))) {
             for (ScoreEntry entry : scoreList) {
                 writer.write(entry.getName() + "," + entry.getScore() + "," + entry.getSize());
@@ -83,17 +100,4 @@ public class Leaderboard {
             System.err.println("Could not load leaderboard " + e.getMessage());
         }
 	}
-
-	// for testing
-	public String stringLeaderboard() {
-		String answer = "";
-		for (int i=0; i < scoreList.size(); i++) {
-			ScoreEntry curScore = scoreList.get(i);
-			answer += curScore.getName() + " ";
-			answer += curScore.getScore() + " "; 
-			answer += curScore.getSize();
-		}
-		return answer;
-	}
-	
 }
