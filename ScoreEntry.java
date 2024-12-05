@@ -30,4 +30,9 @@ public class ScoreEntry {
 	public int getSize() {
 		return size;
 	}
+
+	public String toString() {
+		return name + " " + score + " " + size;
+	}
+	
 }
