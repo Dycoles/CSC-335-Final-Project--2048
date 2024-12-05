@@ -1,3 +1,13 @@
+
+/**
+ * BoardTest.java is to test our Model (Board.java) and Controller (GameManager.java)
+ * for our 2048 game. 
+ * 
+ * @author Dylan Coles (NetID: colesdylan12)
+ * @author Sydney Farlow (NetID; sfarlow)
+ * @author Jack Williams (NetID: jackmwilliams)
+ * @author Arsha Wissinger (NetID: arshawissinger)
+ */
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
