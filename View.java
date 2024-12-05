@@ -1,4 +1,12 @@
-package mvc;
+/**
+ * View.java is the Text Based User Interface that is used to implement the
+ * classes for our 2048. 
+ * 
+ * @author Dylan Coles (NetID: colesdylan12)
+ * @author Sydney Farlow (NetID; sfarlow)
+ * @author Jack Williams (NetID: jackmwilliams)
+ * @author Arsha Wissinger (NetID: arshawissinger)
+ */
 
 import java.util.Scanner;
 
