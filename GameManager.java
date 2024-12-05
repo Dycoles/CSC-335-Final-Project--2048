@@ -1,6 +1,12 @@
-
-package mvc;
-
+/**
+ * GameManager.java is the Controller for our game used to implement the
+ * View (BoardGUI.java) for our 2048 game. 
+ * 
+ * @author Dylan Coles (NetID: colesdylan12)
+ * @author Sydney Farlow (NetID; sfarlow)
+ * @author Jack Williams (NetID: jackmwilliams)
+ * @author Arsha Wissinger (NetID: arshawissinger)
+ */
 import java.util.ArrayList;
 
 import Components.Board;
