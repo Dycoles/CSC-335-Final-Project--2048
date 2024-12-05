@@ -1,4 +1,11 @@
-package Components;
+/**
+ * Tile.java will build each tile that will be used in the game.
+ * 
+ * @author Dylan Coles (NetID: colesdylan12)
+ * @author Sydney Farlow (NetID; sfarlow)
+ * @author Jack Williams (NetID: jackmwilliams)
+ * @author Arsha Wissinger (NetID: arshawissinger)
+ */
 
 import java.util.Random;
 
