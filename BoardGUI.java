@@ -535,7 +535,6 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 
 		// Colors taken from
 		// https://github.com/daniel-huang-1230/Game-2048/blob/master/Gui2048.java
-		// TODO idk if this is plagiarism
 		Color[] colorsToUse = new Color[] { new Color(204, 192, 179), new Color(238, 228, 218),
 				new Color(237, 224, 200), new Color(242, 177, 121), new Color(245, 149, 99), new Color(246, 124, 95),
 				new Color(246, 94, 59), new Color(237, 207, 114), new Color(237, 204, 97), new Color(237, 200, 80),
