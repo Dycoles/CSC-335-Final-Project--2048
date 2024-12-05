@@ -28,6 +28,10 @@ public class Board {
 		compObservers = new ArrayList<>();
 	}
 	
+	public int getSize() {
+		return thisBoardSize;
+	}
+	
 	// determine if the game has been won
 	public boolean gameWon() {
 		for (int row = 0; row < thisBoardSize; row++) {
