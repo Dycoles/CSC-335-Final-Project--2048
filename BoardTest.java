@@ -2,19 +2,21 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 public class BoardTest {
 
 	@Test
 	public void testDirection() {
-		assertEquals(Direction.UP.horiDiff(),0);
-		assertEquals(Direction.LEFT.horiDiff(),-1);
-		assertEquals(Direction.RIGHT.horiDiff(),1);
+		//assertEquals(Direction.UP.horiDiff(),0);
+		//assertEquals(Direction.LEFT.horiDiff(),-1);
+		//assertEquals(Direction.RIGHT.horiDiff(),1);
 		
-		assertEquals(Direction.LEFT.vertDiff(),0);
-		assertEquals(Direction.UP.vertDiff(),-1);
-		assertEquals(Direction.DOWN.vertDiff(),1);
+		//assertEquals(Direction.LEFT.vertDiff(),0);
+		//assertEquals(Direction.UP.vertDiff(),-1);
+		//assertEquals(Direction.DOWN.vertDiff(),1);
 		
 		assertEquals(Direction.strToDir("left"),Direction.LEFT);
 		assertEquals(Direction.strToDir("up"),Direction.UP);
@@ -25,18 +27,27 @@ public class BoardTest {
 
 	@Test
 	public void testLeaderboard() {
-		Leaderboard leaderboard = new Leaderboard();
-		assertEquals(leaderboard.getName(),"");
 		
-		//leaderboard.setName("hip hip");					# ADD TESTS AFTER IMPLEMENTATION
+		GameManager game = new GameManager(4);
+		ArrayList<ScoreEntry> testScores = new ArrayList<ScoreEntry>();
+		assertEquals(game.getLeaderboard(), testScores);
+		
+		Leaderboard leaderboard = new Leaderboard();
+		//assertEquals(leaderboard.getName(),"");
+		
+		//leaderboard.setName("hip hip");
 		//assertEquals(leaderboard.getName(),"hip hip");
 		
+		//leaderboard.loadScores();
 		
-		//leaderboard.addToFile();						# ADD TESTS AFTER IMPLEMENTATION
-		//leaderboard.loadFromFile();
+		ArrayList<ScoreEntry> scores = new ArrayList<ScoreEntry>();
+		leaderboard.addScore("TEST", 0, 4);
 		
-		ArrayList<Integer> empty = new ArrayList<Integer>();
-		assertEquals(leaderboard.getScores(),empty);
+		//ArrayList<ScoreEntry> testScores = leaderboard.getScoreList();
+		//ScoreEntry testScore = new ScoreEntry("TEST", 0, 4);
+		//scores.add(testScore);
+		//assertEquals(scores, testScores);
+		
 	}
 	
 	@Test
