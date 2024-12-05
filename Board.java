@@ -1,3 +1,12 @@
+/**
+ * Board.java is the Model of our 2048 game that is used to implement the
+ * game rules for 2048. 
+ * 
+ * @author Dylan Coles (NetID: colesdylan12)
+ * @author Sydney Farlow (NetID; sfarlow)
+ * @author Jack Williams (NetID: jackmwilliams)
+ * @author Arsha Wissinger (NetID: arshawissinger)
+ */
 
 import java.util.ArrayList;
 import java.util.Random;
