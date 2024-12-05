@@ -54,9 +54,9 @@ public class BoardTest {
 		leaderboard.addScore("TEST", 0, 4);
 		
 		//ArrayList<ScoreEntry> testScores = leaderboard.getScoreList();
-		//ScoreEntry testScore = new ScoreEntry("TEST", 0, 4);
-		//scores.add(testScore);
-		//assertEquals(scores, testScores);
+		ScoreEntry testScore = new ScoreEntry("TEST", 0, 4);
+		scores.add(testScore);
+		assertEquals(scores.toString(), leaderboard.getScoreList().toString());
 		
 	}
 	
