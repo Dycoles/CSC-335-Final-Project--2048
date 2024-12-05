@@ -43,20 +43,19 @@ public class BoardTest {
 		assertEquals(game.getLeaderboard(), testScores);
 		
 		Leaderboard leaderboard = new Leaderboard();
-		//assertEquals(leaderboard.getName(),"");
-		
-		//leaderboard.setName("hip hip");
-		//assertEquals(leaderboard.getName(),"hip hip");
-		
-		//leaderboard.loadScores();
 		
 		ArrayList<ScoreEntry> scores = new ArrayList<ScoreEntry>();
 		leaderboard.addScore("TEST", 0, 4);
 		
-		//ArrayList<ScoreEntry> testScores = leaderboard.getScoreList();
 		ScoreEntry testScore = new ScoreEntry("TEST", 0, 4);
 		scores.add(testScore);
-		assertEquals(scores.toString(), leaderboard.getScoreList().toString());
+		
+		leaderboard.loadScores();
+		
+		ArrayList<ScoreEntry> testScoreList = leaderboard.getScoreList();
+		
+		assertEquals(leaderboard.arrayLeaderboard()[0], "TEST 0 4");
+		assertEquals(testScoreList.get(0).toString(), testScore.toString());
 		
 	}
 	
@@ -440,25 +439,6 @@ public class BoardTest {
 		assertFalse(game.isGameLost());
 		assertTrue(game.isPlaying());
 		assertEquals(game.getCurScore(),0);
-	}
-	
-	@Test
-	public void testGameManagerVoid() {
-		
-		// we need to find a way to test the void methods for coverage
-		// if we cant find a solution to test those methods, lets add
-		// an effectivly meaningless boolean return so we can get the
-		// coverage
-		
-		//game.shift(Direction.UP);
-		//game.shift(Direction.LEFT);
-		//game.shift(Direction.RIGHT);
-		//game.shift(Direction.DOWN);
-		
-		//game.printCurrentBoard();
-		
-		//game.addCompositeObserver();
-		
 	}
 	
 }
