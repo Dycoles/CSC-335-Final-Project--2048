@@ -1,3 +1,12 @@
+/**
+ * Direction.java is an enum class to help implement the tile shifts
+ * in various directions.
+ * 
+ * @author Dylan Coles (NetID: colesdylan12)
+ * @author Sydney Farlow (NetID; sfarlow)
+ * @author Jack Williams (NetID: jackmwilliams)
+ * @author Arsha Wissinger (NetID: arshawissinger)
+ */
 
 public enum Direction {
 	UP, DOWN, LEFT, RIGHT;
