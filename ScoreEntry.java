@@ -1,4 +1,12 @@
-package Components;
+/**
+ * ScoreEntry.java is a class to help get the names and scores of 
+ * the leaderboard in our 2048. 
+ * 
+ * @author Dylan Coles (NetID: colesdylan12)
+ * @author Sydney Farlow (NetID; sfarlow)
+ * @author Jack Williams (NetID: jackmwilliams)
+ * @author Arsha Wissinger (NetID: arshawissinger)
+ */
 
 public class ScoreEntry {
 	private String name;
