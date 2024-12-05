@@ -57,6 +57,12 @@ public class BoardTest {
 		assertEquals(leaderboard.arrayLeaderboard()[0], "TEST 0 4");
 		assertEquals(testScoreList.get(0).toString(), testScore.toString());
 		
+		leaderboard.addScore("TEST1", 0, 4);
+		leaderboard.addScore("TEST2", 0, 4);
+		
+		assertEquals(leaderboard.arrayLeaderboard()[1], "TEST1 0 4");
+		assertEquals(leaderboard.arrayLeaderboard()[2], "TEST2 0 4");
+		
 	}
 	
 	@Test
