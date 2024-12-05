@@ -441,19 +441,6 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		leaderboardPanel.add(mainMenuButton);
 	}
 
-		// create main menu button
-		mainMenuButton = new JButton("Back to Main Menu");
-		mainMenuButton.setBounds(375, 650, 250, 60);
-		mainMenuButton.setBackground(Color.decode("#F5DEB3"));
-		mainMenuButton.setOpaque(true);
-		mainMenuButton.setBorderPainted(false);
-		mainMenuButton.setFont(new Font("Verdana", Font.BOLD, 15));
-		mainMenuButton.setForeground(Color.decode("#9F6B53"));
-		mainMenuButton.setActionCommand("mainMenu");
-		mainMenuButton.addActionListener(new ButtonListener());
-		leaderboardPanel.add(mainMenuButton);
-	}
-
 	// Listener class to respond to button presses:
 	private class ButtonListener implements ActionListener {
 
