@@ -86,7 +86,7 @@ public class GameManager {
 		return leaderboard.getScoreList();
 	}
 	
-	public void addScoreToLeaderboard(String name, int size) {
-		leaderboard.addScore(name, getCurScore(), size);
+	public void addScoreToLeaderboard(String name) {
+		leaderboard.addScore(name, getCurScore(), board.getSize());
 	}
 }
