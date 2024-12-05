@@ -1,5 +1,12 @@
-package Components;
-
+/**
+ * Leaderboard.java is a class to help load and save a leaderboard with
+ * names and scores of players for our 2048 game.
+ * 
+ * @author Dylan Coles (NetID: colesdylan12)
+ * @author Sydney Farlow (NetID; sfarlow)
+ * @author Jack Williams (NetID: jackmwilliams)
+ * @author Arsha Wissinger (NetID: arshawissinger)
+ */
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
