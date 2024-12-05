@@ -1,4 +1,14 @@
 
+/**
+ * BoardGUI.java is the Graphical User Interface that is used to implement the
+ * classes for our 2048. 
+ * 
+ * @author Dylan Coles (NetID: colesdylan12)
+ * @author Sydney Farlow (NetID; sfarlow)
+ * @author Jack Williams (NetID: jackmwilliams)
+ * @author Arsha Wissinger (NetID: arshawissinger)
+ */
+
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
