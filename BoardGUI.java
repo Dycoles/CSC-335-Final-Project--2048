@@ -1,7 +1,8 @@
 
 /**
- * BoardGUI.java is the Graphical User Interface that is used to implement the
- * classes for our 2048. 
+ * BoardGUI.java is the Graphical User Interface/View class that is used 
+ * to implement the classes for our 2048. It will take user inputs and update
+ * the display of the game.
  * 
  * @author Dylan Coles (NetID: colesdylan12)
  * @author Sydney Farlow (NetID; sfarlow)
@@ -37,11 +38,17 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 	private JTextField inputTextField, nameTextField;
 	private static final int DEFAULT_BOARD_SIZE = 4;
 
+	/**
+	 * Initializes the game window
+	 */
 	public BoardGUI() {
 		manager = new GameManager(4);
 		setUp();
 	}
 
+	/**
+	 * Sets up the game and main menu display
+	 */
 	public void setUp() {
 		setTitle("2048");
 		setSize(1000, 800);
@@ -100,6 +107,7 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		leaderboardButton.addActionListener(new ButtonListener());
 		introPanel.add(leaderboardButton);
 
+		// create exit button
 		exitButton = new JButton("Exit");
 		exitButton.setBounds(350, 600, 300, 75);
 		exitButton.setBackground(Color.decode("#F5DEB3"));
@@ -111,21 +119,25 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		exitButton.addActionListener(new ButtonListener());
 		introPanel.add(exitButton);
 
+		// create game panel
 		gamePanel = new JPanel();
 		gamePanel.setLayout(gameLayout);
 		gamePanel.setBackground(Color.decode("#FFFAF0"));
 		gamePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+		// create customizable board size panel
 		boardSizePanel = new JPanel();
 		boardSizePanel.setLayout(boardSizeLayout);
 		boardSizePanel.setBackground(Color.decode("#FFFAF0"));
 		boardSizePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+		// create leaderboard panel
 		leaderboardPanel = new JPanel();
 		leaderboardPanel.setLayout(gameLayout);
 		leaderboardPanel.setBackground(Color.decode("#FFFAF0"));
 		leaderboardPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+		// create the game over glass panel over the game panel
 		gameOverPanel = new JPanel() {
 			@Override
 			protected void paintComponent(Graphics g) {
@@ -138,6 +150,7 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		gameOverPanel.setLayout(null);
 		gameOverPanel.setOpaque(false);
 
+		// create the label for game over
 		gameOverLabel = new JLabel("Game Over", JLabel.CENTER);
 		gameOverLabel.setFont(new Font("Title", Font.PLAIN, 30));
 		gameOverLabel.setBounds(175, 270, 650, 75);
@@ -145,15 +158,20 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 
 		setGlassPane(gameOverPanel);
 
+		// add panels
 		this.add(introPanel, "Intro");
 		this.add(gamePanel, "Game");
 		this.add(boardSizePanel, "Size");
 		this.add(leaderboardPanel, "Leaderboard");
 	}
 
+	/**
+	 * Sets up key bindings to move the tile with W/A/S/D and arrow keys
+	 */
 	private void keyBindings() {
 		InputMap inputMap = gamePanel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW);
 		ActionMap actionMap = gamePanel.getActionMap();
+
 		// Use ButtonListener to use with ActionListener
 		ButtonListener newAction = new ButtonListener();
 
@@ -169,24 +187,28 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		inputMap.put(KeyStroke.getKeyStroke("DOWN"), "down");
 		inputMap.put(KeyStroke.getKeyStroke("RIGHT"), "right");
 
+		// Handle "up" shift
 		actionMap.put("up", new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 				newAction.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "up"));
 			}
 		});
 
+		// Handle "left" shift
 		actionMap.put("left", new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 				newAction.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "left"));
 			}
 		});
 
+		// Handle "right" shift
 		actionMap.put("right", new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 				newAction.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "right"));
 			}
 		});
 
+		// Handle "down" shift
 		actionMap.put("down", new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 				newAction.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "down"));
@@ -194,6 +216,9 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		});
 	}
 
+	/**
+	 * Sets up the gamePanel and handles the mechanics of the actual game
+	 */
 	public void startGame() {
 		// Retrieve and verify board size input:
 		int boardSize;
@@ -247,6 +272,7 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		titleLabel.setBounds(300, -10, 400, 100);
 		gamePanel.add(titleLabel);
 
+		// Create motion label for the game
 		gameLabel = new JLabel("Move the tiles with the buttons below\nor the arrows on your keyboard!");
 		gameLabel.setFont(new Font("Verdana", Font.BOLD, 15));
 		gameLabel.setForeground(Color.decode("#9F6B53"));
@@ -261,6 +287,7 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		gamePanel.add(scoreLabel);
 
 		// Create the directional buttons:
+		// Up button
 		upButton = new JButton('\u2191' + "");
 		upButton.setBackground(new Color(204, 192, 179));
 		upButton.setOpaque(true);
@@ -272,6 +299,7 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		upButton.addActionListener(new ButtonListener());
 		gamePanel.add(upButton);
 
+		// Left button
 		leftButton = new JButton('\u2190' + "");
 		leftButton.setBackground(new Color(204, 192, 179));
 		leftButton.setOpaque(true);
@@ -283,6 +311,7 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		leftButton.addActionListener(new ButtonListener());
 		gamePanel.add(leftButton);
 
+		// Right button
 		rightButton = new JButton('\u2192' + "");
 		rightButton.setBackground(new Color(204, 192, 179));
 		rightButton.setOpaque(true);
@@ -294,6 +323,7 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		rightButton.addActionListener(new ButtonListener());
 		gamePanel.add(rightButton);
 
+		// Down button
 		downButton = new JButton('\u2193' + "");
 		downButton.setBackground(new Color(204, 192, 179));
 		downButton.setOpaque(true);
@@ -343,11 +373,17 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 
 	}
 
+	/**
+	 * Updates the display for the players score
+	 */
 	private void updateScore() {
 		int currScore = manager.getCurScore();
 		scoreLabel.setText("Score:" + currScore);
 	}
 
+	/**
+	 * Set up the board size panel
+	 */
 	private void getBoardSize() {
 		layout.show(getContentPane(), "Size");
 
@@ -384,6 +420,9 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		boardSizePanel.add(startButton);
 	}
 
+	/**
+	 * Sets up the loaderboard panel
+	 */
 	private void getLeaderboard() {
 		layout.show(getContentPane(), "Leaderboard");
 		leaderboardPanel.removeAll();
@@ -454,19 +493,27 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 	// Listener class to respond to button presses:
 	private class ButtonListener implements ActionListener {
 
-		// Carry out the command for the button press:
+		/**
+		 * Carry out the command for the button press
+		 * 
+		 * @param e - the ActionEvent performed
+		 */
 		public void actionPerformed(ActionEvent e) {
 			String cmd = e.getActionCommand().toLowerCase();
 			switch (cmd) {
+			// start game
 			case "start":
 				startGame();
 				break;
+			// handle switching to custom board size panel
 			case "boardsize":
 				getBoardSize();
 				break;
+			// handle switching to the leaderboard panel
 			case "leaderboard":
 				getLeaderboard();
 				break;
+			// handle switching to intro panel
 			case "mainmenu":
 				gameOverPanel.setVisible(false);
 				gameOverPanel.removeAll();
@@ -474,6 +521,7 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 				setUp();
 				layout.show(getContentPane(), "Intro");
 				break;
+			// handle the player submitting their name
 			case "submit":
 				writeToLeaderboard(nameTextField.getText());
 				gameOverLabel.setText("Score Saved!");
@@ -486,8 +534,10 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 				gameOverPanel.removeAll();
 				getContentPane().removeAll();
 				setUp();
+				// return to main menu after "submit"
 				layout.show(getContentPane(), "Intro");
 				break;
+			// Handles direction change
 			case "up":
 			case "left":
 			case "right":
@@ -511,6 +561,7 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 				}
 
 				break;
+			// Exit game
 			case "exit":
 				System.exit(0);
 				break;
@@ -518,11 +569,23 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		}
 	}
 
+	/**
+	 * Write name and score to the leaderboard
+	 * 
+	 * @param name - the player's name
+	 */
 	private void writeToLeaderboard(String name) {
 		manager.loadLeaderboard();
 		manager.addScoreToLeaderboard(name);
 	}
 
+	/**
+	 * Updates the tile's display based on its value
+	 * 
+	 * @param row   - row of the tile
+	 * @param col   - the column of the tile
+	 * @param value - new value to display
+	 */
 	public void updateObserver(int row, int col, int value) {
 		JPanel thisPanel = itemPanels[row][col];
 		JLabel thisLabel = ((JLabel) thisPanel.getComponent(0));
