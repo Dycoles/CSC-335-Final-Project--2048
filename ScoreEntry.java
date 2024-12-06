@@ -8,10 +8,10 @@
  * @author Arsha Wissinger (NetID: arshawissinger)
  */
 
-public class ScoreEntry {
-	private String name;
-	private int score;
-	private int size;
+public final class ScoreEntry {
+	private final String name;
+	private final int score;
+	private final int size;
 
 	/**
 	* Initialize ScoreEntry with name, score, and size
