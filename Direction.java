@@ -14,34 +14,6 @@ public enum Direction {
 	UP, DOWN, LEFT, RIGHT;
 	
 	/**
-	 *  Horizontal difference after shifting in this direction:
-	 *  @return an int representing the horizontal difference after a shift
-	 */
-	/*// 
-	public int horiDiff() {
-		if (this.equals(Direction.LEFT))
-			return -1;
-		else if (this.equals(Direction.RIGHT))
-			return 1;
-		else
-			return 0;
-	}
-	
-	/**
-	 *  Vertical difference after shifting in this direction:
-	 *  @return an int representing the vertical difference after a shift
-	 */
-	/*//
-	public int vertDiff() {
-		if (this.equals(Direction.UP))
-			return -1;
-		else if (this.equals(Direction.DOWN))
-			return 1;
-		else
-			return 0;
-	}*/
-	
-	/**
 	 * Return the Direction corresponding to the accepted String:
 	 * @param str - the String to convert 
 	 * @return Direction enum value that corresponds to the String, otherwise null
