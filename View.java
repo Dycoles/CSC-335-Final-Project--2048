@@ -10,9 +10,6 @@
 
 import java.util.Scanner;
 
-import Components.Board;
-import Components.Direction;
-
 public class View {
 
 	/**
