@@ -58,6 +58,22 @@ public class Leaderboard {
 	}
 
 	/**
+	 * Removes a leaderboard score from the ArrayList
+	 * @param name: String, the name of the player
+	 * @param score: int, the score of the player
+	 */
+	public void removeScore(String name, int score) {
+		for (int i=0;i<scoreList.size();i++) {
+			ScoreEntry entry = scoreList.get(i);
+			if (entry.getName() == name) {
+				if (entry.getScore() == score) {
+					scoreList.remove(i);
+				}
+			}
+		}
+	}
+	
+	/**
 	 * Load the scores from the text file
 	 */
 	public void loadScores() {
