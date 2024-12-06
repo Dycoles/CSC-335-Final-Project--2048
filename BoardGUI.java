@@ -543,7 +543,6 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 			case "right":
 			case "down":
 				manager.shift(Direction.strToDir(cmd));
-				manager.printCurrentBoard();
 				updateScore();
 
 				// Check to see if the game is over:
