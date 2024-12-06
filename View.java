@@ -14,11 +14,19 @@ import Components.Board;
 import Components.Direction;
 
 public class View {
-	
+
+	/**
+	* main, calls playGame
+	*/
 	public static void main(String[] args) {
 		playGame();
 	}
 
+	/**
+	* initializes our board and starts the game loop which
+  	* continuously allows the player to make moves until the
+   	* player has won or lost
+	*/
 	private static void playGame() {
 		Board board = new Board(4);
 		board.printBoard();
