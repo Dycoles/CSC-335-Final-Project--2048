@@ -69,7 +69,6 @@ public class Leaderboard {
 	 * Add the scores to the text file
 	 */
 	private void addToFile() {
-		// TODO
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter("Leaderboard.txt"))) {
 			for (ScoreEntry entry : scoreList) {
 				writer.write(entry.getName() + "," + entry.getScore() + "," + entry.getSize());
