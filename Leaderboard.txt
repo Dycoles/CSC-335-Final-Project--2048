@@ -1,1 +1,1 @@
-NAME; SCORE
+name,0,4
