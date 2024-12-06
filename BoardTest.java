@@ -37,7 +37,6 @@ public class BoardTest {
 
 	@Test
 	public void testLeaderboard() {
-		
 		GameManager game = new GameManager(4);
 		ArrayList<ScoreEntry> testScores = new ArrayList<ScoreEntry>();
 		assertEquals(game.getLeaderboard(), testScores);
@@ -62,7 +61,10 @@ public class BoardTest {
 		
 		assertEquals(leaderboard.arrayLeaderboard()[1], "TEST1 0 4");
 		assertEquals(leaderboard.arrayLeaderboard()[2], "TEST2 0 4");
-		
+		// remove test entries from leaderboard.txt
+		leaderboard.removeScore("TEST", 0);
+		leaderboard.removeScore("TEST1", 0);
+		leaderboard.removeScore("TEST2", 0);
 	}
 	
 	@Test
