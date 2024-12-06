@@ -448,7 +448,7 @@ public class Board {
 	 */
 	public void addCompositeObserver(Composite2048Observer o) {
 		compObservers.add(o);
-		updateObservers();	//FIXME
+		updateObservers();
 	}
 	
 	/**
