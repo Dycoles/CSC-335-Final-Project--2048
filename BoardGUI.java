@@ -273,10 +273,10 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		gamePanel.add(titleLabel);
 
 		// Create motion label for the game
-		gameLabel = new JLabel("Move the tiles with the buttons below\nor the arrows on your keyboard!");
+		gameLabel = new JLabel("Move the tiles with the buttons below or the arrows on your keyboard!");
 		gameLabel.setFont(new Font("Verdana", Font.BOLD, 15));
 		gameLabel.setForeground(Color.decode("#9F6B53"));
-		gameLabel.setBounds(25, -15, 600, 200);
+		gameLabel.setBounds(25, -15, 650, 200);
 		gamePanel.add(gameLabel);
 
 		// Display player's current score
