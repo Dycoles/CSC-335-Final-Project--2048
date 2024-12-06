@@ -1,6 +1,7 @@
+
 /**
- * GameManager.java is the Controller for our game used to implement the
- * View (BoardGUI.java) for our 2048 game. 
+ * GameManager.java is the Controller class used to implement the operations
+ * from the Model class (Board.java) for the View class (BoardGUI.java).
  * 
  * @author Dylan Coles (NetID: colesdylan12)
  * @author Sydney Farlow (NetID; sfarlow)
@@ -9,25 +10,26 @@
  */
 import java.util.ArrayList;
 
-import Components.Board;
-import Components.Composite2048Observer;
-import Components.Direction;
-import Components.Leaderboard;
-import Components.ScoreEntry;
-
 public class GameManager {
 	
 	private Board board;
 	private Boolean isPlaying;
 	private Leaderboard leaderboard;
 
+	/**
+	 * Creates new game with a given board size.
+	 * @param boardSize - the size of the board
+	 */
 	public GameManager(int boardSize) {
 		this.board = new Board(boardSize);
 		this.leaderboard = new Leaderboard();
 		isPlaying = true;
 	}
 	
-	// returns true if score is 2048
+	/**
+	 * Checks if the game has been won
+	 * @return returns true if a tile is 2048, otherwise false
+	 */
 	public boolean isGameWon() {
 		if (board.gameWon()) {
 			isPlaying = false;
@@ -35,7 +37,10 @@ public class GameManager {
 		return board.gameWon();
 	}
 	
-	// returns true if no more moves
+	/**
+	 * Checks if game has been lost
+	 * @return returns true if no more moves, otherwise false
+	 */
 	public boolean isGameLost() {
 		if (board.gameLost()) {
 			isPlaying = false;
@@ -43,17 +48,25 @@ public class GameManager {
 		return board.gameLost();
 	}
 	
-	// checks if the game is still playing
+	/**
+	 * Checks if the game is still active
+	 * @return true if the game is still active, otherwise false
+	 */
 	public boolean isPlaying() {
 		return isPlaying;
 	}
 
-	// print current board
+	/**
+	 * Print current game board
+	 */
 	public void printCurrentBoard() {
 		board.printBoard();
 	}
 	
-	// shift tiles on the board
+	/**
+	 * Shift tiles on the board
+	 * @param dir - the direction the tile will shift
+	 */
 	public void shift(Direction dir) {
 		// check for valid game
 		if (!isPlaying) {
@@ -68,24 +81,41 @@ public class GameManager {
 		}
 	}
 	
-	// gets current score
+	/**
+	 * Gets current score
+	 * @return current score if the game
+	 */
 	public int getCurScore() {
 		return board.getScore();
 	}
 	
-	// Add a composite observer to the model:
+	/**
+	 * Add a composite observer to the model:
+	 * @param o - observer
+	 */
 	public void addCompositeObserver(Composite2048Observer o) {
 		board.addCompositeObserver(o);
 	}
 	
+	/**
+	 * Loads the leaderboard
+	 */
 	public void loadLeaderboard() {
 		leaderboard.loadScores();
 	}
 	
+	/**
+	 * Getter for leaderboard list
+	 * @return an ArrayList of scores.
+	 */
 	public ArrayList<ScoreEntry> getLeaderboard() {
 		return leaderboard.getScoreList();
 	}
 	
+	/**
+	 * Adds name to the leaderboard with corresponding score
+	 * @param name - the name of the player
+	 */
 	public void addScoreToLeaderboard(String name) {
 		leaderboard.addScore(name, getCurScore(), board.getSize());
 	}
