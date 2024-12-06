@@ -292,7 +292,7 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		upButton.setBackground(new Color(204, 192, 179));
 		upButton.setOpaque(true);
 		upButton.setBorderPainted(false);
-		upButton.setFont(new Font("Verdana", Font.BOLD, 21));
+		upButton.setFont(new Font("Arial", Font.BOLD, 21));
 		upButton.setForeground(Color.decode("#9F6B53"));
 		upButton.setBounds(85, 287, 75, 75);
 		upButton.setActionCommand("up");
@@ -304,7 +304,7 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		leftButton.setBackground(new Color(204, 192, 179));
 		leftButton.setOpaque(true);
 		leftButton.setBorderPainted(false);
-		leftButton.setFont(new Font("Verdana", Font.BOLD, 21));
+		leftButton.setFont(new Font("Arial", Font.BOLD, 21));
 		leftButton.setForeground(Color.decode("#9F6B53"));
 		leftButton.setBounds(10, 362, 75, 75);
 		leftButton.setActionCommand("left");
@@ -316,7 +316,7 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		rightButton.setBackground(new Color(204, 192, 179));
 		rightButton.setOpaque(true);
 		rightButton.setBorderPainted(false);
-		rightButton.setFont(new Font("Verdana", Font.BOLD, 21));
+		rightButton.setFont(new Font("Arial", Font.BOLD, 21));
 		rightButton.setForeground(Color.decode("#9F6B53"));
 		rightButton.setBounds(160, 362, 75, 75);
 		rightButton.setActionCommand("right");
@@ -328,7 +328,7 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 		downButton.setBackground(new Color(204, 192, 179));
 		downButton.setOpaque(true);
 		downButton.setBorderPainted(false);
-		downButton.setFont(new Font("Verdana", Font.BOLD, 21));
+		downButton.setFont(new Font("Arial", Font.BOLD, 21));
 		downButton.setForeground(Color.decode("#9F6B53"));
 		downButton.setBounds(85, 437, 75, 75);
 		downButton.setActionCommand("down");
