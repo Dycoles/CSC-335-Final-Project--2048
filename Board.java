@@ -1,6 +1,8 @@
+
 /**
- * Board.java is the Model of our 2048 game that is used to implement the
- * game rules for 2048. 
+ * Board.java is the Model of the 2048 game that is used to implement the
+ * game rules and mechanics. Will manage tile movement, merges, scores, and
+ * game state.
  * 
  * @author Dylan Coles (NetID: colesdylan12)
  * @author Sydney Farlow (NetID; sfarlow)
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Board {
+	
 	// set vars
 	public static int WIN_VAL = 2048;
 	private int thisBoardSize;
@@ -20,7 +23,10 @@ public class Board {
 	public static Random rand = new Random();
 	private ArrayList<Composite2048Observer> compObservers;
 	
-	// initialize board with custom size
+	/**
+	 * Initialize board with custom size
+	 * @param boardSize - custom board size
+	 */
 	public Board(int boardSize) {
 		thisBoardSize = boardSize;
 		myScore = 0;
@@ -28,11 +34,18 @@ public class Board {
 		compObservers = new ArrayList<>();
 	}
 	
+	/**
+	 * Getter for board size
+	 * @return an int representing the board size
+	 */
 	public int getSize() {
 		return thisBoardSize;
 	}
 	
-	// determine if the game has been won
+	/**
+	 * Determines if the game has been won
+	 * @return true is game has been won, otherwise false
+	 */
 	public boolean gameWon() {
 		for (int row = 0; row < thisBoardSize; row++) {
 			for (int col = 0; col < thisBoardSize; col++) {
@@ -44,7 +57,10 @@ public class Board {
 		return false;
 	}
 	
-	// determine if the game has been lost
+	/**
+	 * Determine if the game has been lost
+	 * @return true if game has been lost, false otherwise
+	 */
 	public boolean gameLost() {
 		// Check for any empty tiles:
 		if (randEmpty() != null) {
@@ -70,7 +86,11 @@ public class Board {
 		return true;
 	}
 	
-	// create the board
+	/**
+	 * Creates the board
+	 * @param size - the size of the board
+	 * @return a new board with corresponding amount of tiles
+	 */
 	private Tile[][] initializeBoard(int size) {
 		Tile[][] newBoard = new Tile[size][size];
 		
@@ -99,7 +119,10 @@ public class Board {
 		return newBoard;
 	}
 	
-	// shift tiles on the board
+	/**
+	 * Shift tiles on the board
+	 * @param dir - desired direction shift of a tile
+	 */
 	public void shiftTile(Direction dir) {
 		if (dir == Direction.UP) {
 			shiftTileUp();
@@ -114,7 +137,9 @@ public class Board {
 		updateObservers();
 	}
 
-	// shift tiles upward
+	/**
+	 *  Shifts tiles upward
+	 */
 	private void shiftTileUp() {
 		System.out.println("Shifting up");
 		boolean canShift = canMove(Direction.UP);
@@ -147,6 +172,9 @@ public class Board {
 		}
 	}
 	
+	/**
+	 * Shifts tiles to the right
+	 */
 	private void shiftTileRight() {
 		System.out.println("Shifting right");
 		boolean canShift = canMove(Direction.RIGHT);
@@ -180,6 +208,9 @@ public class Board {
 		}
 	}
 
+	/**
+	 * Shifts tiles to the left
+	 */
 	private void shiftTileLeft() {
 		System.out.println("Shifting left");
 		boolean canShift = canMove(Direction.LEFT);
@@ -213,6 +244,9 @@ public class Board {
 		}
 	}
 	
+	/**
+	 * Shifts tiles down
+	 */
 	private void shiftTileDown() {
 		System.out.println("Shifting down");
 		boolean canShift = canMove(Direction.DOWN);
@@ -246,6 +280,11 @@ public class Board {
 		}
 	}
 	
+	/**
+	 * Checks if tiles can move in given direction
+	 * @param dir - desired direction shift of the tiles
+	 * @return true if the tiles can move/merge, false if they cannot
+	 */
 	private Boolean canMove(Direction dir) {
 		for (int row=0; row<thisBoardSize;row++) {
 			for (int col=0;col<thisBoardSize;col++) {
@@ -281,7 +320,10 @@ public class Board {
 		return false;
 	}
 
-	// get a random empty tile
+	/**
+	 * Get a random empty tile
+	 * @return a random empty tile
+	 */
 	private Tile randEmpty() {
 		ArrayList<Tile> empties = new ArrayList<>();
 		
@@ -303,8 +345,10 @@ public class Board {
 		return empties.get(rand.nextInt(empties.size()));
 	}
 	
+	/**
+	 * Creates a new tile on the board
+	 */
 	private void createNewTile() {
-		// TODO Auto-generated method stub
 		System.out.println("Generating tile");
 		// get a random empty tile
 		Tile newTile = randEmpty();
@@ -318,7 +362,12 @@ public class Board {
 		newTile.initialize();
 	}
 	
-	// get a list of a tile's neighbors
+	/**
+	 * Gets a list of a tile's neighbors
+	 * @param row - the row of the tile
+	 * @param col - the column of a tile
+	 * @return an ArrayList of the tiles neighbors
+	 */
 	private ArrayList<Tile> neighbors(int row, int col) {
 		ArrayList<Tile> neighbors = new ArrayList<Tile>();
 		if (row != 0) {
@@ -336,7 +385,9 @@ public class Board {
 		return neighbors;
 	}
 	
-	// print the board and it's values for testing purposes
+	/**
+	 * Print the board and it's values for testing purposes
+	 */
 	public void printBoard() {
 		for (int row = 0; row < thisBoardSize; row++) {
 	       for (int col = 0; col < thisBoardSize; col++) {
@@ -346,12 +397,17 @@ public class Board {
 		}
 	}
 		
-	// get score value
+	/**
+	 * Getter for score
+	 * @return the player's score
+	 */
 	public int getScore() {
 		return myScore;
 	}
 	
-	// all  methods below used for testing; not part of actual program
+	/**
+	 * Checks an empty board
+	 */
 	public void emptyBoard() {
 		for (int row = 0; row < thisBoardSize; row++) {
 			for (int col = 0; col < thisBoardSize; col++) {
@@ -360,6 +416,10 @@ public class Board {
 		}
 	}
 	
+	/**
+	 * Get a copy of the board
+	 * @return the board copy
+	 */
 	public Tile[][] getBoardCopy() {
 		Tile[][] boardCopy = new Tile[thisBoardSize][thisBoardSize];
 		for (int row = 0; row < thisBoardSize; row++) {
@@ -370,19 +430,30 @@ public class Board {
 		return boardCopy;
 	}
 	
+	/**
+	 * Helps test by inserting tiles
+	 * @param x - horizontal position of the tile
+	 * @param y - vertical position of the tile
+	 * @param val - the value of the tile
+	 */
 	public void insertTestTile(int x, int y, int val) {
 		// create new tile with specific value
 		Tile newTile = new Tile(val);
 		board[x][y] = newTile;
 	}
 	
-	// Add a composite observer to the model:
+	/**
+	 * Adds a composite observer to the model
+	 * @param o - observer
+	 */
 	public void addCompositeObserver(Composite2048Observer o) {
 		compObservers.add(o);
 		updateObservers();	//FIXME
 	}
 	
-	// Update all current composite observers:
+	/**
+	 * Updates all current composite observers
+	 */
 	private void updateObservers() {
 		for (Composite2048Observer observer : compObservers) {
 			for (int row = 0; row  < thisBoardSize; row++) {
