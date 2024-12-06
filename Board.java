@@ -114,8 +114,6 @@ public class Board {
 		} while (t2Row == t1Row && t2Col == t1Col);
 		newBoard[t2Row][t2Col].initialize();
 		
-		// debug print to see if board is created
-		System.out.println("Initializing board");
 		return newBoard;
 	}
 	
@@ -141,7 +139,6 @@ public class Board {
 	 *  Shifts tiles upward
 	 */
 	private void shiftTileUp() {
-		System.out.println("Shifting up");
 		boolean canShift = canMove(Direction.UP);
 		// Iterate through each column:
 		for (int col = 0; col < thisBoardSize; col++) {
@@ -176,7 +173,6 @@ public class Board {
 	 * Shifts tiles to the right
 	 */
 	private void shiftTileRight() {
-		System.out.println("Shifting right");
 		boolean canShift = canMove(Direction.RIGHT);
 		// Iterate through each row:
 		for (int row = 0; row < thisBoardSize; row++) {
@@ -212,7 +208,6 @@ public class Board {
 	 * Shifts tiles to the left
 	 */
 	private void shiftTileLeft() {
-		System.out.println("Shifting left");
 		boolean canShift = canMove(Direction.LEFT);
 		// Iterate through each row:
 		for (int row = 0; row < thisBoardSize; row++) {
@@ -248,7 +243,6 @@ public class Board {
 	 * Shifts tiles down
 	 */
 	private void shiftTileDown() {
-		System.out.println("Shifting down");
 		boolean canShift = canMove(Direction.DOWN);
 		// Iterate through each column:
 		for (int col = 0; col < thisBoardSize; col++) {
@@ -349,7 +343,6 @@ public class Board {
 	 * Creates a new tile on the board
 	 */
 	private void createNewTile() {
-		System.out.println("Generating tile");
 		// get a random empty tile
 		Tile newTile = randEmpty();
 		
