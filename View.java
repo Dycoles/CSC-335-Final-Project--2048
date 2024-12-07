@@ -1,6 +1,6 @@
+
 /**
- * View.java is the Text Based User Interface that is used to implement the
- * classes for our 2048. 
+ * View.java is the text-based user interface for the 2048 program.
  * 
  * @author Dylan Coles (NetID: colesdylan12)
  * @author Sydney Farlow (NetID; sfarlow)
@@ -13,36 +13,37 @@ import java.util.Scanner;
 public class View {
 
 	/**
-	* main, calls playGame
+	* Main method, calls playGame.
 	*/
 	public static void main(String[] args) {
 		playGame();
 	}
 
 	/**
-	* initializes our board and starts the game loop which
-  	* continuously allows the player to make moves until the
-   	* player has won or lost
+	* Initializes the board and starts the game loop, which continuously
+  	* allows the player to make moves until they have won or lost.
 	*/
 	private static void playGame() {
 		Board board = new Board(4);
+		
 		board.printBoard();
 		System.out.println("Use 'w a s d' to shift the board");
+		
 		Scanner scanner = new Scanner(System.in);
 		char inputChar;
 		
 		while (board.gameLost() == false && board.gameWon() == false) {
-			// get input to swipe
+			// Get the shift input, verifying:
 			String input = scanner.nextLine().trim();
-			boolean cont = false;
 			if (input.length() == 1) {
 				inputChar = input.charAt(0);
 			} else {
-				System.out.println("Invalid movement input");
+				System.out.println("Invalid movement input.");
 				continue;
 			}
-			// temporary test input; may decide on better system later
-			Direction dir = Direction.UP;
+			
+			// Read the direction:
+			Direction dir;
 			switch (inputChar) {
 			case 'w':
 				dir = Direction.UP;
@@ -57,24 +58,23 @@ public class View {
 				dir = Direction.RIGHT;
 				break;
 			default:
-				cont = true;
-				System.out.println("Please enter a valid direction");
-				break;
-			}
-			if (cont == true) {
+				System.out.println("Please enter a valid direction.");
 				continue;
 			}
-			// shift the board in the inputed direction
-			System.out.println("Moving " + dir.toString() + "\n");
+
+			// Shift the board in the input direction:
+			System.out.println("Moving " + dir.toString().toLowerCase() + "\n");
 			board.shiftTile(dir);
 			board.printBoard();
 		}
 		
+		// Game is over, so see if it was a win or loss:
 		if (board.gameWon() == true) {
 			System.out.println("You win!");
 		} else {
 			System.out.println("You lose!");
 		}
+		
 		scanner.close();
 	}
 }
