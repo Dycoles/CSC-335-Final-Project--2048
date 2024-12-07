@@ -41,6 +41,7 @@ public class BoardGUI extends JFrame implements Composite2048Observer {
 	 * Initializes the game window.
 	 */
 	public BoardGUI() {
+		manager = new GameManager(4);
 		setUp();
 	}
 
