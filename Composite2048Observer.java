@@ -1,7 +1,7 @@
 
 /**
- * Composite2048Observer.java is the observer class
- * we are implementing in our GUI.
+ * Composite2048Observer.java is an observer interface to allow a Board object
+ * to update a visual representation of its grid.
  * 
  * @author Dylan Coles (NetID: colesdylan12)
  * @author Sydney Farlow (NetID; sfarlow)
