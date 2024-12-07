@@ -1,13 +1,14 @@
 
 /**
- * BoardTest.java is to test our Model (Board.java) and Controller (GameManager.java)
- * for our 2048 game. 
+ * BoardTest.java tests the Model (Board.java) and Controller (GameManager.java)
+ * for the 2048 game. 
  * 
  * @author Dylan Coles (NetID: colesdylan12)
  * @author Sydney Farlow (NetID; sfarlow)
  * @author Jack Williams (NetID: jackmwilliams)
  * @author Arsha Wissinger (NetID: arshawissinger)
  */
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -53,7 +54,8 @@ public class BoardTest {
 		
 		assertEquals(leaderboard.arrayLeaderboard()[1], "TEST1 0 4");
 		assertEquals(leaderboard.arrayLeaderboard()[2], "TEST2 0 4");
-		// remove test entries from leaderboard.txt
+		
+		// Remove the test entries from leaderboard.txt:
 		leaderboard.removeScore("TEST", 0);
 		leaderboard.removeScore("TEST1", 0);
 		leaderboard.removeScore("TEST2", 0);
@@ -72,7 +74,7 @@ public class BoardTest {
 
 		assertEquals(twoTile.isEmpty(), true);
 		
-		// testing canMove/canMerge
+		// Test canMove/canMerge:
 		assertEquals(tile.canMove(twoTile), true);
 		assertEquals(tile.canMerge(twoTile), true);
 	}
@@ -91,33 +93,33 @@ public class BoardTest {
 	
 	@Test
 	public void testShiftUp() {
-		// initialize board
+		// Initialize and empty the board:
 		Board board = new Board(4);
-		// empty board 
 		board.emptyBoard();
-		// insert specific tile
+		
+		// Insert a specific tile, shift, and use copy to compare:
 		board.insertTestTile(1, 1, 8);
-		// shift
 		board.shiftTile(Direction.UP);
-		// use copy of board to compare vals
-		Tile[][] copy = board.getBoardCopy();
-		assertEquals(copy[0][1].getValue(), 8);
+		int[][] copy = board.getBoardValues();
+		assertEquals(copy[0][1], 8);
 	}
 	
 	@Test
 	public void testShiftUpMerge() {
 		Board board = new Board(4);
 		board.emptyBoard();
+		
 		board.insertTestTile(1, 1, 8);
 		board.insertTestTile(0, 1, 8);
 		board.shiftTile(Direction.UP);
-		Tile[][] copy = board.getBoardCopy();
-		assertEquals(copy[0][1].getValue(), 16);
+		int[][] copy = board.getBoardValues();
+		assertEquals(copy[0][1], 16);
 		assertEquals(board.getScore(), 16);
+		
 		board.insertTestTile(1, 1, 16);
 		board.shiftTile(Direction.UP);
-		copy = board.getBoardCopy();
-		assertEquals(copy[0][1].getValue(), 32);
+		copy = board.getBoardValues();
+		assertEquals(copy[0][1], 32);
 		assertEquals(board.getScore(), 48);
 	}
 	
@@ -125,45 +127,46 @@ public class BoardTest {
 	public void testShiftUpDontMerge() {
 		Board board = new Board(4);
 		board.emptyBoard();
+		
 		board.insertTestTile(3, 1, 16);
 		board.insertTestTile(0, 1, 8);
 		board.shiftTile(Direction.UP);
-		Tile[][] copy = board.getBoardCopy();
-		assertEquals(copy[1][1].getValue(), 16);
-		assertEquals(copy[0][1].getValue(), 8);
+		int[][] copy = board.getBoardValues();
+		assertEquals(copy[1][1], 16);
+		assertEquals(copy[0][1], 8);
 		assertEquals(board.getScore(), 0);
-		// shift again for coverage; no new tile created
+		
+		// Shift again for coverage; no new tile created:
 		board.shiftTile(Direction.UP);
 	}
 	
 	@Test
 	public void testShiftDown() {
 		Board board = new Board(4);
-		// empty board 
 		board.emptyBoard();
-		// insert specific tile
+		
 		board.insertTestTile(1, 1, 8);
-		// shift
 		board.shiftTile(Direction.DOWN);
-		// use copy of board to compare vals
-		Tile[][] copy = board.getBoardCopy();
-		assertEquals(copy[3][1].getValue(), 8);
+		int[][] copy = board.getBoardValues();
+		assertEquals(copy[3][1], 8);
 	}
 	
 	@Test
 	public void testShiftDownMerge() {
 		Board board = new Board(4);
 		board.emptyBoard();
+		
 		board.insertTestTile(1, 1, 8);
 		board.insertTestTile(0, 1, 8);
 		board.shiftTile(Direction.DOWN);
-		Tile[][] copy = board.getBoardCopy();
-		assertEquals(copy[3][1].getValue(), 16);
+		int[][] copy = board.getBoardValues();
+		assertEquals(copy[3][1], 16);
 		assertEquals(board.getScore(), 16);
+		
 		board.insertTestTile(2, 1, 16);
 		board.shiftTile(Direction.DOWN);
-		copy = board.getBoardCopy();
-		assertEquals(copy[3][1].getValue(), 32);
+		copy = board.getBoardValues();
+		assertEquals(copy[3][1], 32);
 		assertEquals(board.getScore(), 48);
 	}
 	
@@ -171,45 +174,46 @@ public class BoardTest {
 	public void testShiftDownDontMerge() {
 		Board board = new Board(4);
 		board.emptyBoard();
+		
 		board.insertTestTile(1, 1, 16);
 		board.insertTestTile(0, 1, 8);
 		board.shiftTile(Direction.DOWN);
-		Tile[][] copy = board.getBoardCopy();
-		assertEquals(copy[3][1].getValue(), 16);
-		assertEquals(copy[2][1].getValue(), 8);
+		int[][] copy = board.getBoardValues();
+		assertEquals(copy[3][1], 16);
+		assertEquals(copy[2][1], 8);
 		assertEquals(board.getScore(), 0);
-		// shift again for coverage; no new tile created
+		
+		// Shift again for coverage; no new tile created:
 		board.shiftTile(Direction.DOWN);
 	}
 	
 	@Test
 	public void testShiftLeft() {
 		Board board = new Board(4);
-		// empty board 
 		board.emptyBoard();
-		// insert specific tile
+
 		board.insertTestTile(1, 1, 8);
-		// shift
 		board.shiftTile(Direction.LEFT);
-		// use copy of board to compare vals
-		Tile[][] copy = board.getBoardCopy();
-		assertEquals(copy[1][0].getValue(), 8);
+		int[][] copy = board.getBoardValues();
+		assertEquals(copy[1][0], 8);
 	}
 	
 	@Test
 	public void testShiftLeftMerge() {
 		Board board = new Board(4);
 		board.emptyBoard();
+		
 		board.insertTestTile(1, 1, 8);
 		board.insertTestTile(1, 2, 8);
 		board.shiftTile(Direction.LEFT);
-		Tile[][] copy = board.getBoardCopy();
-		assertEquals(copy[1][0].getValue(), 16);
+		int[][] copy = board.getBoardValues();
+		assertEquals(copy[1][0], 16);
 		assertEquals(board.getScore(), 16);
+		
 		board.insertTestTile(1, 1, 16);
 		board.shiftTile(Direction.LEFT);
-		copy = board.getBoardCopy();
-		assertEquals(copy[1][0].getValue(), 32);
+		copy = board.getBoardValues();
+		assertEquals(copy[1][0], 32);
 		assertEquals(board.getScore(), 48);
 	}
 	
@@ -217,45 +221,46 @@ public class BoardTest {
 	public void testShiftLeftDontMerge() {
 		Board board = new Board(4);
 		board.emptyBoard();
+		
 		board.insertTestTile(1, 1, 16);
 		board.insertTestTile(0, 1, 8);
 		board.shiftTile(Direction.DOWN);
-		Tile[][] copy = board.getBoardCopy();
-		assertEquals(copy[3][1].getValue(), 16);
-		assertEquals(copy[2][1].getValue(), 8);
+		int[][] copy = board.getBoardValues();
+		assertEquals(copy[3][1], 16);
+		assertEquals(copy[2][1], 8);
 		assertEquals(board.getScore(), 0);
-		// shift again for coverage; no new tile created
+		
+		// Shift again for coverage; no new tile created:
 		board.shiftTile(Direction.DOWN);
 	}
 	
 	@Test 
 	public void testShiftRight() {
 		Board board = new Board(4);
-		// empty board 
 		board.emptyBoard();
-		// insert specific tile
+
 		board.insertTestTile(1, 1, 8);
-		// shift
 		board.shiftTile(Direction.RIGHT);
-		// use copy of board to compare vals
-		Tile[][] copy = board.getBoardCopy();
-		assertEquals(copy[1][3].getValue(), 8);
+		int[][] copy = board.getBoardValues();
+		assertEquals(copy[1][3], 8);
 	}
 	
 	@Test
 	public void testShiftRightMerge() {
 		Board board = new Board(4);
 		board.emptyBoard();
+		
 		board.insertTestTile(1, 1, 8);
 		board.insertTestTile(1, 2, 8);
 		board.shiftTile(Direction.RIGHT);
-		Tile[][] copy = board.getBoardCopy();
-		assertEquals(copy[1][3].getValue(), 16);
+		int[][] copy = board.getBoardValues();
+		assertEquals(copy[1][3], 16);
 		assertEquals(board.getScore(), 16);
+		
 		board.insertTestTile(1, 2, 16);
 		board.shiftTile(Direction.RIGHT);
-		copy = board.getBoardCopy();
-		assertEquals(copy[1][3].getValue(), 32);
+		copy = board.getBoardValues();
+		assertEquals(copy[1][3], 32);
 		assertEquals(board.getScore(), 48);
 	}
 	
@@ -263,112 +268,116 @@ public class BoardTest {
 	public void testShiftRightDontMerge() {
 		Board board = new Board(4);
 		board.emptyBoard();
+		
 		board.insertTestTile(1, 2, 16);
 		board.insertTestTile(1, 1, 8);
 		board.shiftTile(Direction.RIGHT);
-		Tile[][] copy = board.getBoardCopy();
-		assertEquals(copy[1][3].getValue(), 16);
-		assertEquals(copy[1][2].getValue(), 8);
+		int[][] copy = board.getBoardValues();
+		assertEquals(copy[1][3], 16);
+		assertEquals(copy[1][2], 8);
 		assertEquals(board.getScore(), 0);
-		// shift again for coverage; no new tile created
+		
+		// Shift again for coverage; no new tile created:
 		board.shiftTile(Direction.RIGHT);
 	}
 
-	// checks the edge case where we shift in a direction but no movement 
-	// or merges occur so no new tiles are formed
+	// The next few tests check the edge case where we shift in a direction,
+	// but no movement or merges occur, so no new tiles are formed.
 	@Test
 	public void testShiftUpEdge() {
 		Board board = new Board(4);
 		board.emptyBoard();
+		
 		board.insertTestTile(0, 2, 16);
 		board.insertTestTile(0, 3, 8);
 		board.insertTestTile(1, 3, 16);
 		board.insertTestTile(1, 2, 8);
 		board.insertTestTile(2, 2, 16);
 		board.insertTestTile(2, 3, 8);
-		Tile[][] copy = board.getBoardCopy();
+		int[][] copy = board.getBoardValues();
 		board.shiftTile(Direction.UP);
-		assertEquals(copy[0][2].getValue(), 16);
-		assertEquals(copy[0][3].getValue(), 8);
-		assertEquals(copy[1][3].getValue(), 16);
-		assertEquals(copy[1][2].getValue(), 8);
-		assertEquals(copy[2][2].getValue(), 16);
-		assertEquals(copy[2][3].getValue(), 8);
+		
+		assertEquals(copy[0][2], 16);
+		assertEquals(copy[0][3], 8);
+		assertEquals(copy[1][3], 16);
+		assertEquals(copy[1][2], 8);
+		assertEquals(copy[2][2], 16);
+		assertEquals(copy[2][3], 8);
 		assertEquals(board.getScore(), 0);
 		assertFalse(board.gameWon());
 		assertFalse(board.gameLost());
 	}
 	
-	// checks the edge case where we shift in a direction but no movement 
-	// or merges occur so no new tiles are formed
 	@Test
 	public void testShiftLeftEdge() {
 		Board board = new Board(4);
 		board.emptyBoard();
+		
 		board.insertTestTile(1, 0, 16);
 		board.insertTestTile(1, 1, 8);
 		board.insertTestTile(2, 0, 16);
 		board.insertTestTile(2, 1, 8);
 		board.insertTestTile(3, 0, 16);
 		board.insertTestTile(3, 1, 8);
-		Tile[][] copy = board.getBoardCopy();
+		int[][] copy = board.getBoardValues();
 		board.shiftTile(Direction.LEFT);
-		assertEquals(copy[1][0].getValue(), 16);
-		assertEquals(copy[1][1].getValue(), 8);
-		assertEquals(copy[2][0].getValue(), 16);
-		assertEquals(copy[2][1].getValue(), 8);
-		assertEquals(copy[3][0].getValue(), 16);
-		assertEquals(copy[3][1].getValue(), 8);
+		
+		assertEquals(copy[1][0], 16);
+		assertEquals(copy[1][1], 8);
+		assertEquals(copy[2][0], 16);
+		assertEquals(copy[2][1], 8);
+		assertEquals(copy[3][0], 16);
+		assertEquals(copy[3][1], 8);
 		assertEquals(board.getScore(), 0);
 		assertFalse(board.gameWon());
 		assertFalse(board.gameLost());
 	}
 	
-	// checks the edge case where we shift in a direction but no movement 
-	// or merges occur so no new tiles are formed
 	@Test
 	public void testShiftDownEdge() {
 		Board board = new Board(4);
 		board.emptyBoard();
+		
 		board.insertTestTile(1, 2, 16);
 		board.insertTestTile(1, 3, 8);
 		board.insertTestTile(2, 3, 16);
 		board.insertTestTile(2, 2, 8);
 		board.insertTestTile(3, 2, 16);
 		board.insertTestTile(3, 3, 8);
-		Tile[][] copy = board.getBoardCopy();
+		int[][] copy = board.getBoardValues();
 		board.shiftTile(Direction.DOWN);
-		assertEquals(copy[1][2].getValue(), 16);
-		assertEquals(copy[1][3].getValue(), 8);
-		assertEquals(copy[2][3].getValue(), 16);
-		assertEquals(copy[2][2].getValue(), 8);
-		assertEquals(copy[3][2].getValue(), 16);
-		assertEquals(copy[3][3].getValue(), 8);
+		
+		assertEquals(copy[1][2], 16);
+		assertEquals(copy[1][3], 8);
+		assertEquals(copy[2][3], 16);
+		assertEquals(copy[2][2], 8);
+		assertEquals(copy[3][2], 16);
+		assertEquals(copy[3][3], 8);
 		assertEquals(board.getScore(), 0);
 		assertFalse(board.gameWon());
 		assertFalse(board.gameLost());
 	}
 	
-	// checks the edge case where we shift in a direction but no movement 
-	// or merges occur so no new tiles are formed
 	@Test
 	public void testShiftRightEdge() {
 		Board board = new Board(4);
 		board.emptyBoard();
+		
 		board.insertTestTile(1, 3, 16);
 		board.insertTestTile(1, 2, 8);
 		board.insertTestTile(2, 3, 16);
 		board.insertTestTile(2, 2, 8);
 		board.insertTestTile(3, 3, 16);
 		board.insertTestTile(3, 2, 8);
-		Tile[][] copy = board.getBoardCopy();
+		int[][] copy = board.getBoardValues();
 		board.shiftTile(Direction.RIGHT);
-		assertEquals(copy[1][3].getValue(), 16);
-		assertEquals(copy[1][2].getValue(), 8);
-		assertEquals(copy[2][3].getValue(), 16);
-		assertEquals(copy[2][2].getValue(), 8);
-		assertEquals(copy[3][3].getValue(), 16);
-		assertEquals(copy[3][2].getValue(), 8);
+		
+		assertEquals(copy[1][3], 16);
+		assertEquals(copy[1][2], 8);
+		assertEquals(copy[2][3], 16);
+		assertEquals(copy[2][2], 8);
+		assertEquals(copy[3][3], 16);
+		assertEquals(copy[3][2], 8);
 		assertEquals(board.getScore(), 0);
 		assertFalse(board.gameWon());
 		assertFalse(board.gameLost());
@@ -378,8 +387,10 @@ public class BoardTest {
 	public void testGameWon() {
 		Board board = new Board(4);
 		board.emptyBoard();
+		
 		assertFalse(board.gameWon());
 		assertFalse(board.gameLost());
+		
 		board.insertTestTile(0, 0, 2048);
 		assertTrue(board.gameWon());
 		assertFalse(board.gameLost());
@@ -389,8 +400,10 @@ public class BoardTest {
 	public void testGameLost() {
 		Board board = new Board(4);
 		board.emptyBoard();
+		
 		assertFalse(board.gameWon());
 		assertFalse(board.gameLost());
+		
 		board.insertTestTile(0, 0, 1);
 		board.insertTestTile(0, 1, 2);
 		board.insertTestTile(0, 2, 3);
@@ -407,11 +420,12 @@ public class BoardTest {
 		board.insertTestTile(3, 1, 14);
 		board.insertTestTile(3, 2, 15);
 		board.insertTestTile(3, 3, 16);
+		
 		assertTrue(board.gameLost());
 		assertFalse(board.gameWon());
-		// test condition where board is full but merge possible
+		
+		// Test the condition where board is full but a merge is possible:
 		board.emptyBoard();
-		// tiles neighbor each other and can be merged
 		board.insertTestTile(0, 0, 2);
 		board.insertTestTile(0, 1, 2);
 		board.insertTestTile(0, 2, 3);
